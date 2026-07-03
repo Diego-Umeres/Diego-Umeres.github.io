@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diego Umeres — Research & Análisis de Inversiones</title>
+<meta name="description" content="Análisis de estados financieros, research de empresas, columnas de opinión y código aplicado a finanzas. Por Diego Umeres, analista de gestión patrimonial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF9F6;
+  --ink:#0F1720;
+  --ink-soft:#3D4852;
+  --navy:#0F2136;
+  --navy-deep:#0A1826;
+  --green:#1B8A5F;
+  --green-bright:#37C48B;
+  --red:#B6432E;
+  --line:#DEDBD2;
+  --line-navy:rgba(255,255,255,.14);
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --serif:'Newsreader',Georgia,serif;
+  --sans:'Archivo',-apple-system,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#fff}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--navy-deep);
+  border-bottom:1px solid var(--line-navy);
+}
+.topbar-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:60px;
+}
+.brand{
+  font-family:var(--serif);
+  font-size:1.15rem;font-weight:600;color:#fff;letter-spacing:.01em;
+}
+.brand em{font-style:italic;color:var(--green-bright);font-weight:500}
+nav{display:flex;gap:26px}
+nav a{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.62);
+  padding:4px 0;border-bottom:1px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+nav a:hover,nav a:focus-visible{color:#fff;border-color:var(--green-bright)}
+a:focus-visible{outline:2px solid var(--green-bright);outline-offset:3px;border-radius:2px}
+.menu-btn{display:none}
+
+/* ---------- hero ---------- */
+.hero{
+  background:linear-gradient(178deg,var(--navy-deep) 0%,var(--navy) 100%);
+  color:#fff;
+  padding:88px 0 0;
+  overflow:hidden;
+}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--green-bright);
+  display:flex;align-items:center;gap:12px;margin-bottom:28px;
+}
+.hero-eyebrow::after{content:"";flex:0 0 64px;height:1px;background:var(--line-navy)}
+.hero h1{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(2.4rem,5.4vw,4.1rem);
+  line-height:1.08;
+  letter-spacing:-.01em;
+  max-width:15ch;
+}
+.hero h1 em{font-style:italic;color:var(--green-bright)}
+.hero-sub{
+  margin-top:24px;max-width:52ch;
+  color:rgba(255,255,255,.72);font-size:1.05rem;font-weight:400;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:start;
+}
+.meta-card{
+  border:1px solid var(--line-navy);
+  border-radius:3px;
+  padding:26px 26px 20px;
+  background:rgba(255,255,255,.03);
+  backdrop-filter:blur(2px);
+}
+.meta-card h2{
+  font-family:var(--mono);font-size:.68rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  padding-bottom:14px;margin-bottom:6px;
+  border-bottom:1px solid var(--line-navy);
+}
+.meta-row{
+  display:flex;justify-content:space-between;gap:16px;
+  padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07);
+  font-size:.85rem;
+}
+.meta-row:last-child{border-bottom:none}
+.meta-row dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);padding-top:2px}
+.meta-row dd{text-align:right;color:rgba(255,255,255,.9);font-weight:500}
+.meta-row dd .tick{color:var(--green-bright);font-family:var(--mono);font-size:.78rem}
+.spark-zone{margin-top:64px;position:relative}
+.spark-zone svg{display:block;width:100%;height:120px}
+.spark-label{
+  position:absolute;right:0;top:-8px;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.4);
+}
+
+/* ---------- sections ---------- */
+section{padding:88px 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+.sec-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:.7rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--green);
+  margin-bottom:14px;
+}
+.sec-tag::before{content:"";width:8px;height:8px;background:var(--green);border-radius:1px}
+.sec-head h2{
+  font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3vw,2.3rem);
+  line-height:1.15;letter-spacing:-.01em;
+}
+.sec-head p{max-width:44ch;color:var(--ink-soft);font-size:.95rem}
+
+/* research cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  border:1px solid var(--line);border-radius:3px;background:#fff;
+  padding:24px;display:flex;flex-direction:column;gap:14px;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(15,33,54,.10);border-color:var(--navy)}
+.card-top{display:flex;justify-content:space-between;align-items:center}
+.ticker{
+  font-family:var(--mono);font-size:.78rem;font-weight:600;letter-spacing:.06em;
+  background:var(--navy);color:#fff;padding:4px 9px;border-radius:2px;
+}
+.card-type{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.card h3{font-family:var(--serif);font-weight:500;font-size:1.28rem;line-height:1.25}
+.card p{font-size:.9rem;color:var(--ink-soft);flex:1}
+.card-metrics{
+  display:flex;gap:20px;padding-top:14px;border-top:1px solid var(--line);
+}
+.metric{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft)}
+.metric b{display:block;font-size:.92rem;color:var(--ink);font-weight:600}
+.metric b.up{color:var(--green)}
+.metric b.down{color:var(--red)}
+.card-link{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--green);font-weight:600;margin-top:2px;
+}
+.card-link:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* columnas */
+.col-section{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.col-list{display:flex;flex-direction:column}
+.col-item{
+  display:grid;grid-template-columns:150px 1fr auto;gap:28px;align-items:baseline;
+  padding:26px 0;border-bottom:1px solid var(--line);
+  transition:background .2s;
+}
+.col-item:last-child{border-bottom:none}
+.col-item:hover h3{color:var(--green)}
+.col-date{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--ink-soft);text-transform:uppercase}
+.col-item h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.3;transition:color .2s}
+.col-item p{font-size:.9rem;color:var(--ink-soft);margin-top:6px;max-width:64ch}
+.col-arrow{font-family:var(--mono);color:var(--green);font-size:1rem;align-self:center}
+
+/* codigo */
+.code-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+.code-copy p{color:var(--ink-soft);margin-bottom:18px;font-size:.98rem}
+.code-topics{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;
+  border:1px solid var(--line);border-radius:2px;padding:6px 11px;
+  color:var(--ink-soft);background:#fff;
+}
+.code-window{
+  background:var(--navy-deep);border-radius:6px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(15,33,54,.28);
+  border:1px solid rgba(255,255,255,.08);
+}
+.code-bar{
+  display:flex;align-items:center;gap:8px;padding:12px 16px;
+  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);
+}
+.dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.18)}
+.code-bar span{margin-left:auto;font-family:var(--mono);font-size:.68rem;color:rgba(255,255,255,.45)}
+.code-window pre{
+  padding:22px;overflow-x:auto;
+  font-family:var(--mono);font-size:.8rem;line-height:1.7;
+  color:#C9D4DF;
+}
+.tk-c{color:#5D7285;font-style:italic}
+.tk-k{color:#37C48B}
+.tk-s{color:#E8C878}
+.tk-f{color:#7FB4E8}
+.tk-n{color:#D89A7E}
+
+/* perfil */
+.perfil{background:var(--navy);color:#fff}
+.perfil .sec-tag{color:var(--green-bright)}
+.perfil .sec-tag::before{background:var(--green-bright)}
+.perfil .sec-head p{color:rgba(255,255,255,.65)}
+.perfil-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:72px}
+.timeline{list-style:none}
+.timeline li{
+  position:relative;padding:0 0 30px 34px;
+  border-left:1px solid var(--line-navy);
+}
+.timeline li:last-child{padding-bottom:0;border-color:transparent}
+.timeline li::before{
+  content:"";position:absolute;left:-5px;top:5px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--navy);border:2px solid var(--green-bright);
+}
+.timeline li.done::before{background:var(--green-bright)}
+.tl-when{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green-bright)}
+.timeline h3{font-family:var(--serif);font-weight:500;font-size:1.18rem;margin:4px 0 3px}
+.timeline p{font-size:.86rem;color:rgba(255,255,255,.6)}
+.stack h3{
+  font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);
+  margin:26px 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line-navy);
+}
+.stack h3:first-child{margin-top:0}
+.stack-chips{display:flex;flex-wrap:wrap;gap:8px}
+.stack .chip{background:transparent;border-color:var(--line-navy);color:rgba(255,255,255,.8)}
+.exp-line{font-size:.9rem;color:rgba(255,255,255,.72);line-height:1.7}
+.exp-line b{color:#fff;font-weight:600}
+
+/* contacto / footer */
+.footer{background:var(--navy-deep);color:#fff;padding:80px 0 36px;border-top:1px solid var(--line-navy)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:start;margin-bottom:64px}
+.footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.15}
+.footer h2 em{font-style:italic;color:var(--green-bright)}
+.footer-links{display:flex;flex-direction:column;gap:14px;padding-top:10px}
+.footer-links a{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;
+  padding:14px 18px;border:1px solid var(--line-navy);border-radius:3px;
+  color:rgba(255,255,255,.85);
+  transition:border-color .2s,background .2s;
+}
+.footer-links a:hover{border-color:var(--green-bright);background:rgba(55,196,139,.06)}
+.footer-links a span{color:var(--green-bright)}
+.legal{
+  border-top:1px solid var(--line-navy);padding-top:26px;
+  display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;
+  color:rgba(255,255,255,.4);line-height:1.8;
+}
+.legal .disclaimer{max-width:62ch}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .card{transition:none}
+}
+
+/* responsive */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .cards{grid-template-columns:1fr}
+  .code-grid{grid-template-columns:1fr;gap:40px}
+  .perfil-grid{grid-template-columns:1fr;gap:56px}
+  .footer-grid{grid-template-columns:1fr;gap:40px}
+  .col-item{grid-template-columns:1fr;gap:6px}
+  .col-arrow{display:none}
+  nav{display:none}
+  nav.open{
+    display:flex;flex-direction:column;position:absolute;top:60px;left:0;right:0;
+    background:var(--navy-deep);padding:20px 28px;gap:18px;
+    border-bottom:1px solid var(--line-navy);
+  }
+  .menu-btn{
+    display:block;background:none;border:1px solid var(--line-navy);border-radius:3px;
+    color:#fff;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
+    padding:8px 12px;cursor:pointer;text-transform:uppercase;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#top">Diego Umeres<em>.</em></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">Menú</button>
+    <nav id="mainNav" aria-label="Navegación principal">
+      <a href="#research">Research</a>
+      <a href="#columnas">Columnas</a>
+      <a href="#codigo">Código</a>
+      <a href="#perfil">Perfil</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow">Nota de research · DU-2026</p>
+        <h1>Análisis de inversiones con <em>rigor institucional</em>.</h1>
+        <p class="hero-sub">Research de empresas a partir de sus estados financieros, columnas de opinión sobre mercados y código aplicado a finanzas. Escrito desde la gestión patrimonial, con estándar de mesa de análisis.</p>
+      </div>
+      <dl class="meta-card" aria-label="Ficha del analista">
+        <h2>Ficha del analista</h2>
+        <div class="meta-row"><dt>Analista</dt><dd>Diego Umeres</dd></div>
+        <div class="meta-row"><dt>Enfoque</dt><dd>Equity · Renta fija · Macro</dd></div>
+        <div class="meta-row"><dt>Base</dt><dd>Lima, Perú</dd></div>
+        <div class="meta-row"><dt>CFA Level I</dt><dd><span class="tick">✓ Aprobado 2026</span></dd></div>
+        <div class="meta-row"><dt>FRM Part I</dt><dd>Candidato · Nov 2026</dd></div>
+      </dl>
+    </div>
+    <div class="spark-zone" aria-hidden="true">
+      <span class="spark-label">Cobertura en construcción — desde 2026</span>
+      <svg viewBox="0 0 1120 120" preserveAspectRatio="none">
+        <path id="sparkline" d="M0,95 L60,88 L120,92 L180,78 L240,82 L300,66 L360,72 L420,58 L480,64 L540,46 L600,54 L660,40 L720,47 L780,32 L840,38 L900,24 L960,30 L1020,16 L1080,20 L1120,10"
+          fill="none" stroke="#37C48B" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH ============ -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="sec-tag">Research</p>
+        <h2>Análisis de empresas y estados financieros</h2>
+      </div>
+      <p>Tesis de inversión construidas desde los números: rentabilidad, apalancamiento, generación de caja y valorización.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal">
+        <div class="card-top"><span class="ticker">BVL: BAP</span><span class="card-type">Equity · Financieras</span></div>
+        <h3>Credicorp: calidad de cartera y ROE sostenible</h3>
+        <p>Lectura de los estados financieros del holding: margen financiero neto, costo de riesgo y qué tan defendible es el retorno sobre patrimonio en el ciclo actual.</p>
+        <div class="card-metrics">
+          <div class="metric">ROE <b class="up">—</b></div>
+          <div class="metric">P/B <b>—</b></div>
+          <div class="metric">NPL <b>—</b></div>
+        </div>
+        <a class="card-link" href="#">Leer análisis →</a>
+      </article>
+      <article class="card reveal">
+        <div class="card-top"><span class="ticker">BVL: ALICORC1</span><span class="card-type">Equity · Consumo</span></div>
+        <h3>Alicorp: márgenes, deuda y el costo de crecer</h3>
+        <p>Descomposición del estado de resultados y del balance: presión de costos, estructura de deuda y conversión de EBITDA a flujo de caja libre.</p>
+        <div class="card-metrics">
+          <div class="metric">EBITDA mg <b>—</b></div>
+          <div class="metric">DN/EBITDA <b class="down">—</b></div>
+          <div class="metric">FCF yield <b>—</b></div>
+        </div>
+        <a class="card-link" href="#">Leer análisis →</a>
+      </article>
+      <article class="card reveal">
+        <div class="card-top"><span class="ticker">BVL: IFS</span><span class="card-type">Equity · Financieras</span></div>
+        <h3>Intercorp Financial: valorización por suma de partes</h3>
+        <p>Banca, seguros y gestión de patrimonios bajo un mismo holding: cómo valorizar cada segmento y dónde está el descuento frente a comparables.</p>
+        <div class="card-metrics">
+          <div class="metric">P/E <b>—</b></div>
+          <div class="metric">Div. yield <b class="up">—</b></div>
+          <div class="metric">SOTP <b>—</b></div>
+        </div>
+        <a class="card-link" href="#">Leer análisis →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLUMNAS ============ -->
+<section id="columnas" class="col-section">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="sec-tag">Columnas de opinión</p>
+        <h2>Ideas sobre mercados, sin ruido</h2>
+      </div>
+      <p>Opinión con datos detrás: tasas, ciclo económico peruano, asignación de activos y lo que la coyuntura significa para el inversionista de largo plazo.</p>
+    </div>
+    <div class="col-list">
+      <a class="col-item reveal" href="#">
+        <span class="col-date">Próximamente</span>
+        <div>
+          <h3>Lo que la curva de rendimientos en soles dice del 2027</h3>
+          <p>Tasas de referencia, expectativas de inflación y qué está descontando el mercado local de renta fija.</p>
+        </div>
+        <span class="col-arrow">→</span>
+      </a>
+      <a class="col-item reveal" href="#">
+        <span class="col-date">Próximamente</span>
+        <div>
+          <h3>Diversificar desde el Perú: el sesgo local cuesta caro</h3>
+          <p>Por qué concentrar el patrimonio en activos domésticos es un riesgo silencioso, y cómo construir exposición global con disciplina.</p>
+        </div>
+        <span class="col-arrow">→</span>
+      </a>
+      <a class="col-item reveal" href="#">
+        <span class="col-date">Próximamente</span>
+        <div>
+          <h3>Benchmarks: la referencia equivocada arruina el mejor portafolio</h3>
+          <p>Qué hay detrás de un índice, por qué importa cómo se construye y cómo elegir la vara correcta para medir un portafolio.</p>
+        </div>
+        <span class="col-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CODIGO ============ -->
+<section id="codigo">
+  <div class="wrap">
+    <div class="code-grid">
+      <div class="code-copy reveal">
+        <p class="sec-tag">Código & finanzas</p>
+        <h2 style="font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1.15;margin-bottom:18px">Modelos reproducibles, no cajas negras</h2>
+        <p>Implementaciones en Python, R y VBA de las herramientas que uso en el día a día: valorización de bonos, métricas de riesgo, backtesting y automatización de reportes.</p>
+        <p>Cada publicación incluye el código completo, los datos de ejemplo y la explicación financiera detrás de cada línea.</p>
+        <div class="code-topics">
+          <span class="chip">Duración y convexidad</span>
+          <span class="chip">VaR & Stress VaR</span>
+          <span class="chip">Backtesting Kupiec</span>
+          <span class="chip">Valorización DCF</span>
+          <span class="chip">Automatización de reportes</span>
+        </div>
+      </div>
+      <div class="code-window reveal" aria-label="Ejemplo de código">
+        <div class="code-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span>bond_risk.py</span>
+        </div>
+<pre><code><span class="tk-c"># Duración modificada y PVBP de un bono bullet</span>
+<span class="tk-k">import</span> numpy <span class="tk-k">as</span> np
+
+<span class="tk-k">def</span> <span class="tk-f">bond_price</span>(ytm, cupon, vn, n, freq=<span class="tk-n">2</span>):
+    t = np.arange(<span class="tk-n">1</span>, n * freq + <span class="tk-n">1</span>)
+    cf = np.full(t.shape, cupon * vn / freq)
+    cf[-<span class="tk-n">1</span>] += vn
+    <span class="tk-k">return</span> np.sum(cf / (<span class="tk-n">1</span> + ytm / freq) ** t)
+
+ytm, dy = <span class="tk-n">0.065</span>, <span class="tk-n">0.0001</span>
+p0 = bond_price(ytm, <span class="tk-n">0.055</span>, <span class="tk-n">1000</span>, <span class="tk-n">10</span>)
+pvbp = (bond_price(ytm - dy, <span class="tk-n">0.055</span>, <span class="tk-n">1000</span>, <span class="tk-n">10</span>) - p0)
+
+<span class="tk-f">print</span>(<span class="tk-s">f"Precio: {p0:,.2f} | PVBP: {pvbp:.4f}"</span>)</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERFIL ============ -->
+<section id="perfil" class="perfil">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="sec-tag">Perfil</p>
+        <h2>Formación y trayectoria</h2>
+      </div>
+      <p>Analista de gestión patrimonial en un multi-family office, con base cuantitativa en riesgo de mercado y un plan de certificaciones en ejecución.</p>
+    </div>
+    <div class="perfil-grid">
+      <ul class="timeline">
+        <li class="done reveal">
+          <span class="tl-when">2026 · Completado</span>
+          <h3>CFA Level I — Aprobado</h3>
+          <p>Chartered Financial Analyst Program, CFA Institute.</p>
+        </li>
+        <li class="reveal">
+          <span class="tl-when">Nov 2026 · En curso</span>
+          <h3>FRM Part I — Candidato</h3>
+          <p>Financial Risk Manager, GARP. Enfoque en riesgo de mercado y modelos cuantitativos.</p>
+        </li>
+        <li class="reveal">
+          <span class="tl-when">May 2027 · Planificado</span>
+          <h3>CFA Level II</h3>
+          <p>Valorización de activos y análisis de estados financieros a profundidad.</p>
+        </li>
+        <li class="reveal">
+          <span class="tl-when">Hoy</span>
+          <h3>Analista de Gestión Patrimonial</h3>
+          <p>Multi-family office en Lima. Análisis de portafolios multi-jurisdicción, reporting institucional y presentaciones de estrategia.</p>
+        </li>
+      </ul>
+      <div class="stack reveal">
+        <h3>Herramientas</h3>
+        <div class="stack-chips">
+          <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">R</span>
+          <span class="chip">VBA</span><span class="chip">Bloomberg</span><span class="chip">Refinitiv</span>
+          <span class="chip">Addepar</span>
+        </div>
+        <h3>Áreas de análisis</h3>
+        <div class="stack-chips">
+          <span class="chip">Macro</span><span class="chip">Equity</span><span class="chip">Renta fija</span>
+          <span class="chip">Riesgo de mercado</span><span class="chip">Portafolios</span>
+        </div>
+        <h3>Experiencia previa</h3>
+        <p class="exp-line">Riesgo de mercado en banca (<b>VaR, Stress VaR, backtesting</b>) y análisis macro y de renta variable en un family office. Formación en la <b>Universidad Nacional Mayor de San Marcos</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO / FOOTER ============ -->
+<footer id="contacto" class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="reveal">
+        <p class="sec-tag" style="color:var(--green-bright)">Contacto</p>
+        <h2>¿Hablamos de <em>mercados</em>?</h2>
+        <p style="margin-top:18px;color:rgba(255,255,255,.65);max-width:46ch;font-size:.95rem">Abierto a conversaciones sobre research, oportunidades profesionales y colaboraciones en contenido de inversiones.</p>
+      </div>
+      <div class="footer-links reveal">
+        <a href="mailto:contacto@diegoumeres.com">contacto@diegoumeres.com <span>→</span></a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn / Diego Umeres <span>→</span></a>
+        <a href="https://github.com/" target="_blank" rel="noopener">GitHub / código publicado <span>→</span></a>
+      </div>
+    </div>
+    <div class="legal">
+      <p class="disclaimer">El contenido de este sitio es de carácter informativo y educativo. No constituye asesoría financiera ni recomendación de compra o venta de valores. Las opiniones son personales y no representan a ninguna institución.</p>
+      <p>© <span id="yr"></span> Diego Umeres · Lima, Perú</p>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script>
+// año dinámico
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// menú móvil
+const btn = document.getElementById('menuBtn');
+const nav = document.getElementById('mainNav');
+btn.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open);
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
+}));
+
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// sparkline: trazo animado al cargar
+const sp = document.getElementById('sparkline');
+if (sp && !reduced) {
+  const len = sp.getTotalLength();
+  sp.style.strokeDasharray = len;
+  sp.style.strokeDashoffset = len;
+  sp.getBoundingClientRect();
+  sp.style.transition = 'stroke-dashoffset 2.2s cubic-bezier(.4,0,.2,1)';
+  requestAnimationFrame(() => { sp.style.strokeDashoffset = '0'; });
+}
+
+// reveals al hacer scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => {
+  if (reduced) el.classList.add('in');
+  else io.observe(el);
+});
+</script>
+</body>
+</html>
