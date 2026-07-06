@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La curva de Treasuries y el term premium — Nota de estrategia | Diego Umeres</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page:#E7EBEE;
+    --surface:#FFFFFF;
+    --ink:#14213D;
+    --body:#2B3541;
+    --muted:#64707E;
+    --faint:#8994A1;
+    --hair:#D4DBE1;
+    --hair-strong:#B9C3CB;
+    --petrol:#12616A;
+    --petrol-soft:#E4EEEE;
+    --amber:#A05A1C;
+    --amber-soft:#F3EADD;
+    --up:#B0271E;      /* rendimientos al alza / mayor costo */
+    --down:#1F7A4D;    /* rendimientos a la baja */
+    --serif:'Newsreader',Georgia,serif;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--page);color:var(--body);
+    font-family:var(--sans);font-size:17px;line-height:1.62;
+    font-feature-settings:"kern" 1;
+    -webkit-font-smoothing:antialiased;
+  }
+  .doc{
+    max-width:820px;margin:34px auto 80px;background:var(--surface);
+    border:1px solid var(--hair);
+    box-shadow:0 1px 0 rgba(20,33,61,.03),0 24px 60px -40px rgba(20,33,61,.28);
+  }
+  .pad{padding:0 clamp(22px,6vw,72px)}
+
+  /* ---- Masthead ---- */
+  .masthead{
+    border-bottom:2px solid var(--ink);
+    padding-top:30px;padding-bottom:16px;
+  }
+  .masthead-top{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:16px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .wordmark{
+    font-family:var(--serif);font-weight:600;font-size:23px;letter-spacing:-.01em;
+    color:var(--ink);text-transform:none;
+  }
+  .wordmark span{color:var(--petrol)}
+  .masthead-meta{display:flex;gap:22px;flex-wrap:wrap}
+  .kicker{
+    margin-top:20px;font-family:var(--mono);font-size:11.5px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:500;
+  }
+
+  /* ---- Hero ---- */
+  .hero{padding-top:26px;padding-bottom:30px;border-bottom:1px solid var(--hair)}
+  h1{
+    font-family:var(--serif);font-weight:500;color:var(--ink);
+    font-size:clamp(30px,5.6vw,46px);line-height:1.08;letter-spacing:-.015em;
+    margin:0 0 20px;
+  }
+  h1 em{font-style:italic;color:var(--petrol)}
+  .thesis{
+    font-family:var(--serif);font-size:clamp(18px,2.4vw,21px);line-height:1.5;
+    color:var(--body);max-width:64ch;margin:0;
+  }
+  .byline{
+    margin-top:22px;font-size:13.5px;color:var(--muted);
+    display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  }
+  .byline b{color:var(--ink);font-weight:600}
+  .dot-sep{color:var(--hair-strong)}
+
+  /* ---- Data ribbon ---- */
+  .ribbon{
+    display:grid;grid-template-columns:repeat(5,1fr);
+    border-top:1px solid var(--hair);
+  }
+  .ribbon .cell{
+    padding:16px 14px;border-right:1px solid var(--hair);
+  }
+  .ribbon .cell:last-child{border-right:none}
+  .ribbon .lab{
+    font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--faint);display:block;margin-bottom:7px;
+  }
+  .ribbon .val{
+    font-family:var(--mono);font-weight:600;font-size:21px;color:var(--ink);
+    line-height:1;display:block;
+  }
+  .ribbon .sub{
+    font-family:var(--mono);font-size:11px;margin-top:6px;display:block;color:var(--muted);
+  }
+  .sub.u{color:var(--up)} .sub.d{color:var(--down)}
+
+  /* ---- Body sections ---- */
+  section{padding-top:38px;padding-bottom:4px}
+  .sec-head{
+    display:flex;gap:16px;align-items:baseline;margin-bottom:14px;
+    border-bottom:1px solid var(--hair);padding-bottom:10px;
+  }
+  .sec-num{
+    font-family:var(--mono);font-size:12px;font-weight:600;color:var(--petrol);
+    letter-spacing:.08em;flex:none;padding-top:4px;
+  }
+  h2{
+    font-family:var(--serif);font-weight:600;color:var(--ink);
+    font-size:clamp(21px,3.2vw,27px);line-height:1.16;letter-spacing:-.01em;margin:0;
+  }
+  p{margin:0 0 15px}
+  section p:first-of-type{margin-top:4px}
+  strong{color:var(--ink);font-weight:600}
+  em{font-style:italic}
+  a.fn{
+    font-family:var(--mono);font-size:.66em;vertical-align:super;
+    color:var(--petrol);text-decoration:none;font-weight:600;padding:0 1px;
+  }
+  a.fn:hover{text-decoration:underline}
+  .lede{font-size:18.5px;color:var(--body)}
+
+  /* pull / callout */
+  .call{
+    border-left:3px solid var(--petrol);background:var(--petrol-soft);
+    padding:16px 20px;margin:22px 0;font-size:15.5px;line-height:1.56;
+  }
+  .call.amber{border-left-color:var(--amber);background:var(--amber-soft)}
+  .call .ct{
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);display:block;margin-bottom:7px;
+  }
+
+  /* tables */
+  .tbl-wrap{margin:22px 0;overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:13.5px}
+  caption{
+    text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);padding-bottom:9px;
+  }
+  th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--hair);
+    font-variant-numeric:tabular-nums}
+  th:first-child,td:first-child{text-align:left}
+  thead th{
+    color:var(--ink);font-weight:600;border-bottom:1.5px solid var(--hair-strong);
+    font-size:12px;
+  }
+  tbody tr:last-child td{border-bottom:1.5px solid var(--hair-strong)}
+  td.hl{color:var(--ink);font-weight:600}
+  .tp{color:var(--amber);font-weight:600}
+  .exp{color:var(--petrol);font-weight:600}
+  .u{color:var(--up)} .d{color:var(--down)}
+  .rowlab{color:var(--body);font-weight:500}
+  tfoot td{border-bottom:none;padding-top:9px;font-family:var(--sans);
+    font-size:11.5px;color:var(--muted);text-align:left}
+
+  ul.clean{margin:6px 0 16px;padding-left:0;list-style:none}
+  ul.clean li{position:relative;padding-left:26px;margin-bottom:12px}
+  ul.clean li::before{
+    content:attr(data-k);position:absolute;left:0;top:0;
+    font-family:var(--mono);font-size:11px;font-weight:600;color:var(--petrol);
+  }
+  .scen{margin:18px 0}
+  .scen h3{
+    font-family:var(--sans);font-size:15px;color:var(--ink);margin:0 0 4px;
+    display:flex;gap:10px;align-items:baseline;
+  }
+  .scen h3 .tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+    padding:2px 7px;border-radius:2px;font-weight:600;flex:none;
+  }
+  .tag.a{background:#FBE9E7;color:var(--up)}
+  .tag.b{background:var(--amber-soft);color:var(--amber)}
+  .tag.c{background:#E5F1EA;color:var(--down)}
+  .scen p{margin:4px 0 0;font-size:15px}
+
+  /* preview box */
+  .preview{
+    margin-top:40px;border:1.5px dashed var(--hair-strong);
+    background:#F7F9FA;padding:24px 26px;
+  }
+  .preview .ct{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--amber);display:block;margin-bottom:12px;
+  }
+  .preview p{font-family:var(--serif);font-size:16.5px;line-height:1.56;margin:0;color:var(--body)}
+  .wc{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:12px}
+
+  /* sources + disclaimer */
+  .sources{padding-top:36px;margin-top:30px;border-top:2px solid var(--ink)}
+  .sources h2{font-size:18px;margin-bottom:14px}
+  ol.src{margin:0;padding-left:22px;font-size:12.5px;line-height:1.5;color:var(--muted)}
+  ol.src li{margin-bottom:8px}
+  ol.src b{color:var(--body);font-weight:600}
+  .disc{
+    margin-top:26px;padding-top:18px;border-top:1px solid var(--hair);
+    font-size:11.5px;line-height:1.55;color:var(--faint);
+  }
+  .asof{
+    font-family:var(--mono);font-size:11px;color:var(--muted);
+    margin-top:8px;padding:10px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  }
+  @media (max-width:560px){
+    .ribbon{grid-template-columns:repeat(2,1fr)}
+    .ribbon .cell:nth-child(2){border-right:none}
+    .ribbon .cell:nth-child(5){grid-column:1/-1;border-right:none;border-top:1px solid var(--hair)}
+    body{font-size:16px}
+  }
+  @media print{
+    body{background:#fff}.doc{box-shadow:none;border:none;margin:0;max-width:none}
+  }
+</style>
+</head>
+<body>
+<article class="doc">
+
+  <!-- MASTHEAD -->
+  <header class="masthead pad">
+    <div class="masthead-top">
+      <span class="wordmark">Umeres · <span>Research</span></span>
+      <div class="masthead-meta">
+        <span>Nota de estrategia</span>
+        <span>Renta fija · Macro</span>
+        <span>N.º 01</span>
+      </div>
+    </div>
+    <div class="kicker">Tasas globales — Curva de Treasuries</div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero pad">
+    <h1>El tramo largo es una historia de <em>term premium</em>, no de la Fed</h1>
+    <p class="thesis">La descomposición ACM del NY Fed muestra que la parte corta de la curva descuenta razonablemente el sesgo restrictivo de la Fed, mientras que el nivel del 10Y y del 30Y depende, en el margen, de una prima por plazo que volvió a territorio positivo tras una década. Con expectativas de tasa bien ancladas y una prima fiscal que es hoy el driver oscilante del tramo largo, la recomendación es infraponderar duración con un <em>barbell</em> cargado al <em>belly</em>, y tratar al soberano peruano en dólares como carry de calidad más que como una apuesta de compresión de spread.</p>
+    <div class="byline">
+      <b>Diego Umeres</b>
+      <span class="dot-sep">—</span>
+      <span>Economista · CFA Level&nbsp;I (aprobado)</span>
+      <span class="dot-sep">·</span>
+      <span>Lima, 4 de julio de 2026</span>
+    </div>
+  </div>
+
+  <!-- DATA RIBBON -->
+  <div class="ribbon">
+    <div class="cell"><span class="lab">UST 2Y</span><span class="val">4.07</span><span class="sub u">+60 pb YTD</span></div>
+    <div class="cell"><span class="lab">UST 10Y</span><span class="val">4.38</span><span class="sub u">+19 pb YTD</span></div>
+    <div class="cell"><span class="lab">UST 30Y</span><span class="val">4.87</span><span class="sub">≈ estable YTD</span></div>
+    <div class="cell"><span class="lab">TP 10Y · ACM</span><span class="val">0.47</span><span class="sub d">−36 pb vs. may.</span></div>
+    <div class="cell"><span class="lab">EMBIG Perú</span><span class="val">109</span><span class="sub d">mínimos de ciclo</span></div>
+  </div>
+  <div class="asof pad">Cifras en % salvo EMBIG (pb). Curva UST: par CMT al 26-jun-2026.<a class="fn" href="#f1">1</a> · TP 10Y: modelo ACM del NY Fed al 29-jun-2026.<a class="fn" href="#f3">3</a> · EMBIG Perú: BCRP, al 3-jun-2026 (último dato duro verificable).<a class="fn" href="#f6">6</a></div>
+
+  <div class="pad">
+
+  <!-- 1. RESUMEN EJECUTIVO -->
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Resumen ejecutivo</h2></div>
+    <p class="lede">La venta del primer semestre de 2026 fue asimétrica: el 2Y subió ~60 pb (a 4.07%) mientras el 10Y solo avanzó ~19 pb (a 4.38%) y el 30Y quedó prácticamente plano (4.87%), un <strong>bear-flattening del 2s10s</strong> que responde a que el mercado eliminó los recortes y descuenta una Fed con sesgo a subir.<a class="fn" href="#f1">1</a><a class="fn" href="#f5">5</a></p>
+    <p>Descomponiendo el 10Y con el modelo ACM del NY Fed, el componente de <em>expectativas</em> hace casi todo el trabajo en el tramo corto, y la <strong>prima por plazo (term premium)</strong> —positiva desde 2024 tras una década en negativo— es la variable que mueve el tramo largo en el margen. El TP 10Y trepó a ~0.83% a mediados de mayo y comprimió a ~0.47% al cierre de junio: el largo, no la Fed, es hoy el driver de volatilidad.<a class="fn" href="#f3">3</a><a class="fn" href="#f4">4</a> Para el crédito peruano, el EMBIG en ~109 pb —cerca de mínimos— abarata el spread pero no cubre la exposición a la duración base en USD. <strong>Táctica: infraponderar duración, barbell con sobrepeso en el belly (2–5Y), infrapeso explícito en 20–30Y, y una cobertura de cola en TIPS.</strong></p>
+  </section>
+
+  <!-- 2. MARCO CONCEPTUAL -->
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Marco conceptual: qué separa al <em>term premium</em> de las expectativas</h2></div>
+    <p>El rendimiento nominal de un bono a plazo <em>n</em> puede leerse, bajo la hipótesis de expectativas, como el promedio esperado de las tasas cortas futuras durante la vida del bono. La evidencia rechaza esa igualdad: el rendimiento observado incorpora además un <strong>term premium</strong>, la compensación que exige el inversionista por asumir el riesgo de tasa —principalmente riesgo de duración y de reinversión— frente a la alternativa de renovar posiciones cortas.</p>
+    <p>Formalmente, para el rendimiento a <em>n</em> períodos:</p>
+    <div class="call">
+      <span class="ct">Identidad de descomposición</span>
+      <span style="font-family:var(--mono);font-size:15px;color:var(--ink)">y<sub>t</sub><sup>(n)</sup> &nbsp;=&nbsp; <span class="exp">(1/n)·Σ E<sub>t</sub>[ r<sub>t+i</sub> ]</span> &nbsp;+&nbsp; <span class="tp">TP<sub>t</sub><sup>(n)</sup></span></span>
+      <p style="margin:11px 0 0;font-size:14px;color:var(--body)">El primer término es la <span class="exp">trayectoria esperada de la tasa corta</span> (lo que "cree" el mercado sobre la Fed); el segundo es la <span class="tp">prima por plazo</span> (riesgo, no expectativa).</p>
+    </div>
+    <p>La distinción es operativa, no académica. En un régimen de term premium bajo o negativo —como el de la era de <em>quantitative easing</em> 2014–2021— el 10Y queda mecánicamente anclado a la senda esperada de tasas: si se descuentan recortes, el largo cae. En un régimen de <strong>prima positiva y creciente</strong>, ambos componentes pueden moverse en direcciones opuestas, y mirar solo los <em>dots</em> de la Fed para proyectar el 10Y usa un modelo que funcionaba en 2015 y no en 2026.<a class="fn" href="#f4">4</a> El precedente canónico es el <em>taper tantrum</em> de 2013: la prima saltó ~100 pb en cuatro meses <em>sin</em> que la Fed subiera tasas.</p>
+    <p>El problema es que el term premium <strong>no es observable</strong>: se estima con modelos de estructura temporal sin arbitraje. Trabajamos con dos referencias públicas —ACM (NY Fed) y Kim-Wright (Junta de la Fed)— y las triangulamos, porque un punto estimado de cualquier modelo debe leerse como rango, no como número.<a class="fn" href="#f4">4</a></p>
+  </section>
+
+  <!-- 3. DESCOMPOSICIÓN ACM -->
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Descomposición de la curva actual (modelo ACM)</h2></div>
+    <p>El modelo ACM —Adrian, Crump y Moench— es un modelo de estructura temporal de cinco factores, sin arbitraje, que el NY Fed publica a diario y separa cada rendimiento en <em>expectativas</em> y <em>term premium</em> para plazos de 1 a 10 años.<a class="fn" href="#f2">2</a> Es la descomposición "de la casa" de la Fed, citada por gobernadores en discursos de política de balance.<a class="fn" href="#f4">4</a></p>
+
+    <div class="tbl-wrap">
+      <table>
+        <caption>Descomposición ACM del rendimiento nominal — cifras en %</caption>
+        <thead>
+          <tr><th>Plazo</th><th>Rend. nominal</th><th>Expectativas</th><th>Term premium</th><th>Lectura</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rowlab">2Y</td><td class="hl">4.07</td>
+            <td class="exp">≈ 4.0</td><td class="tp">≈ 0.0 – 0.1</td>
+            <td style="text-align:left;color:var(--muted);font-family:var(--sans);font-size:12.5px">Casi todo expectativas: Fed <em>higher-for-longer</em></td>
+          </tr>
+          <tr>
+            <td class="rowlab">10Y</td><td class="hl">4.38</td>
+            <td class="exp">≈ 3.91</td><td class="tp">0.47</td>
+            <td style="text-align:left;color:var(--muted);font-family:var(--sans);font-size:12.5px">Prima positiva; bajó desde ~0.83% (may.)</td>
+          </tr>
+          <tr>
+            <td class="rowlab">30Y</td><td class="hl">4.87</td>
+            <td class="exp" style="color:var(--faint)">s/d</td><td class="tp" style="color:var(--faint)">s/d</td>
+            <td style="text-align:left;color:var(--muted);font-family:var(--sans);font-size:12.5px">ACM no cubre 30Y — ver nota metodológica</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="5">Rendimientos: par CMT del Tesoro al 26-jun-2026.<a class="fn" href="#f1">1</a> TP 10Y: ACM/NY Fed al 29-jun-2026 (0.47%).<a class="fn" href="#f3">3</a> Expectativas 10Y = rendimiento − TP (aproximación). Ancla de calibración: al 30-abr-2026 ACM descompuso un 10Y de 4.45% en 3.72% expectativas + 0.73% TP.<a class="fn" href="#f4">4</a> El 2Y se caracteriza cualitativamente (prima históricamente pequeña); no se dispone del punto ACM 2Y del día.</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="call amber">
+      <span class="ct">Nota metodológica — límite del dato</span>
+      <p style="margin:0;font-size:14.5px">El modelo ACM se publica <strong>solo hasta 10 años</strong>; el Kim-Wright de la Junta de la Fed también. <strong>No existe un term premium de 30Y oficial de estos modelos.</strong> Para el 30Y usamos como <em>proxy</em> indirecto la pendiente 10s30s (+49 pb) y su dinámica: cuando el 30Y lidera un empinamiento, es señal de presión de prima/oferta en el extremo largo, no de reprecio de expectativas de la Fed. Cualquier "TP 30Y" citado proviene de extrapolaciones de terceros y debe tratarse con cautela.</p>
+    </div>
+
+    <p>Dos lecturas se desprenden. Primero, el <strong>2Y a 4.07% es casi enteramente expectativas</strong>: refleja una Fed que el mercado ve estacionada o al alza, con prima por plazo mínima a ese vértice. Segundo, en el 10Y la prima (~0.47%) es hoy <strong>el componente de mayor volatilidad</strong>: explica el ida-y-vuelta del rendimiento entre el pico de mayo (10Y en 4.67%, 30Y en 5.18% el 19-may) y el rally posterior a 4.38%, con las expectativas relativamente quietas.<a class="fn" href="#f1">1</a> En términos históricos, un TP de ~0.5% se ubica en torno al percentil 35 de la distribución de 65 años y marca un <strong>cambio de régimen</strong> frente a los mínimos negativos de la era QE.<a class="fn" href="#f4">4</a></p>
+  </section>
+
+  <!-- 4. QUÉ DESCUENTA EL MERCADO -->
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Qué está descontando el mercado hoy</h2></div>
+    <ul class="clean">
+      <li data-k="a."><strong>Trayectoria de la Fed.</strong> El rango se mantiene en <strong>3.50–3.75%</strong> (punto medio 3.625%) desde diciembre de 2025; el FOMC lo sostuvo por 12-0 el 17-jun bajo la nueva presidencia de Kevin Warsh.<a class="fn" href="#f8">8</a> El <em>dot plot</em> de junio subió la mediana de fin-2026 a <strong>3.8%</strong> (desde 3.4% en marzo): 9 de 18 miembros ven la tasa más alta a fin de año, con la neutral de largo plazo intacta en 3.1%.<a class="fn" href="#f5">5</a> El mercado (CME FedWatch) <strong>no descuenta recortes en 2026</strong> y asigna ~40% a una subida de 25 pb hacia diciembre; un dato de empleo débil de junio (57 mil NFP vs. 114 mil esperados) enfrió parcialmente esa probabilidad.<a class="fn" href="#f7">7</a></li>
+      <li data-k="b."><strong>Prima fiscal / oferta de deuda.</strong> Es el motor del tramo largo. La combinación de déficit federal elevado, <em>runoff</em> del balance de la Fed y una demanda extranjera en meseta obliga al sector privado a absorber una proporción creciente de papel largo. Los <em>refunding</em> trimestrales del Tesoro son el catalizador directo: el episodio de mediados de mayo (TP 10Y en ~0.83%) coincidió con foco en la mezcla de emisión larga.<a class="fn" href="#f4">4</a></li>
+      <li data-k="c."><strong>Inflación esperada.</strong> El propio SEP de junio elevó el PCE 2026 a <strong>3.6% headline / 3.3% core</strong> (desde 2.7%), y el CPI de mayo marcó 4.2% interanual, empujado por un shock energético ligado al conflicto en Medio Oriente (Estrecho de Ormuz).<a class="fn" href="#f5">5</a><a class="fn" href="#f9">9</a> Es una inflación de oferta que complica el "mirar más allá" del shock y sostiene el sesgo restrictivo.</li>
+    </ul>
+    <div class="call">
+      <span class="ct">Síntesis</span>
+      <p style="margin:0;font-size:15px">El mercado <em>sí</em> le cree a la Fed: las expectativas de tasa corta siguen el <em>dot plot</em>. Lo que dice el bono largo es distinto —que la prima de duración pasó de negativa a positiva— y que los recortes que aún queden por descontar pueden quedar <em>compensados</em> por una prima al alza. Esa es la diferencia entre "el mercado no le cree a la Fed" (lectura perezosa) y "el largo cotiza riesgo, no expectativa".<a class="fn" href="#f4">4</a></p>
+    </div>
+  </section>
+
+  <!-- CURVE TABLE -->
+  <div class="tbl-wrap pad" style="padding-left:0;padding-right:0">
+    <table>
+      <caption>Curva par CMT del Tesoro y variación en 2026 (pb)</caption>
+      <thead>
+        <tr><th>Vértice</th><th>02-ene-26</th><th>19-may-26 (pico)</th><th>26-jun-26</th><th>Δ YTD</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="rowlab">3M</td><td>3.65</td><td>3.68</td><td class="hl">3.83</td><td class="u">+18</td></tr>
+        <tr><td class="rowlab">2Y</td><td>3.47</td><td>4.13</td><td class="hl">4.07</td><td class="u">+60</td></tr>
+        <tr><td class="rowlab">5Y</td><td>3.74</td><td>4.32</td><td class="hl">4.12</td><td class="u">+38</td></tr>
+        <tr><td class="rowlab">10Y</td><td>4.19</td><td>4.67</td><td class="hl">4.38</td><td class="u">+19</td></tr>
+        <tr><td class="rowlab">30Y</td><td>4.86</td><td>5.18</td><td class="hl">4.87</td><td class="u">+1</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="5">Fuente: Daily Treasury Par Yield Curve Rates.<a class="fn" href="#f1">1</a> Pendientes al 26-jun: 2s10s +31 pb · 5s30s +75 pb · 10s30s +49 pb · 3m10y +55 pb. El patrón —corto que sube fuerte, largo anclado con round-trip— es la firma de un reprecio de expectativas Fed (corto) sobre una prima de plazo volátil (largo).</td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="pad" style="padding-left:0;padding-right:0"></div>
+  <div>
+
+  <!-- 5. TRANSMISIÓN A PERÚ -->
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Transmisión al spread soberano peruano</h2></div>
+    <p>El costo de fondeo en dólares de un emisor peruano se descompone de forma aditiva:</p>
+    <div class="call">
+      <span class="ct">Costo all-in en USD</span>
+      <span style="font-family:var(--mono);font-size:14.5px;color:var(--ink)">y<sub>emisor</sub> = <span class="exp">UST<sub>(plazo)</sub></span> + <span style="color:var(--amber)">Spread soberano (EMBIG)</span> + Prima idiosincrática</span>
+    </div>
+    <p>La <strong>curva americana es la tasa base</strong> (nivel y forma), y el EMBIG es el diferencial soberano sobre el Tesoro. Para un 10Y peruano en dólares hoy: UST 10Y (4.38%) + EMBIG (~1.09%) + prima corporativa ≈ <strong>por encima de 5.5%</strong> antes del premio idiosincrático.<a class="fn" href="#f1">1</a><a class="fn" href="#f6">6</a> De ahí las dos vías de transmisión:</p>
+    <ul class="clean">
+      <li data-k="→"><strong>Efecto nivel.</strong> Todo desplazamiento paralelo del UST se traslada uno-a-uno a la tasa base. Con el 10Y en 4.38% y una Fed que no recorta, el piso de fondeo en dólares es estructuralmente más alto que en 2020–2021.</li>
+      <li data-k="→"><strong>Efecto forma.</strong> Un empinamiento del extremo largo por prima de plazo encarece <em>de forma desproporcionada</em> la emisión larga en dólares; un bear-flattening del corto encarece el <em>rollover</em> de papel corto. El emisor peruano paga la <em>forma</em> de la curva, no solo su nivel.</li>
+    </ul>
+    <div class="call amber">
+      <span class="ct">El punto no obvio — descorrelación de drivers</span>
+      <p style="margin:0;font-size:14.5px">Hoy el EMBIG Perú está en <strong>~109 pb, cerca de mínimos de ciclo</strong> (venía de 127 pb en dic-25, subió a 144 pb en marzo y comprimió de vuelta), mientras la prima de plazo del UST está elevada.<a class="fn" href="#f6">6</a><a class="fn" href="#f10">10</a> Es decir: el <em>spread</em> soberano y el <em>term premium</em> del Tesoro responden a factores distintos. La compresión del EMBIG es idiosincrática peruana —términos de intercambio favorables (cobre y oro altos), cuentas externas sólidas, deuda baja con vida media >12 años y ahorros fiscales de ~10% del PBI— y convive con un rating <strong>BBB− (S&amp;P) / Baa1 (Moody's)</strong>, grado de inversión y de los más bajos de riesgo en la región.<a class="fn" href="#f11">11</a><a class="fn" href="#f12">12</a> El tesorero peruano se beneficia hoy del spread ajustado, pero queda <strong>expuesto a la duración/prima del UST</strong> en la tasa base.</p>
+    </div>
+    <p>La advertencia de correlación importa para el riesgo: en episodios de <em>risk-off</em> por shock de prima fiscal (como el de mayo), la correlación clásica "UST sube / spread EM se amplía" golpea por partida doble. En el régimen actual, en cambio, los <em>commodities</em> altos y una Fed restrictiva han sido <em>net-positivos</em> para el spread peruano aun con tasa base pegajosa —una configuración benigna pero no garantizada. El riesgo de cola local es endógeno: 2026 es año electoral y S&amp;P advierte que la fragmentación política y presiones de gasto (migración CAS→728, contingencias de Petroperú) podrían presionar la calificación.<a class="fn" href="#f13">13</a></p>
+  </section>
+
+  <!-- 6. IMPLICANCIA PRÁCTICA -->
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Implicancia para un portafolio UHNW de renta fija</h2></div>
+    <p>Dado (i) un tramo corto que ya reprició una Fed restrictiva con riesgo de subida, (ii) una prima 10Y por debajo de sus máximos pero estructuralmente sesgada al alza por oferta/fiscal, y (iii) un 30Y a 4.87% sin lectura oficial de prima y máximamente expuesto a re-empinamiento por oferta, el posicionamiento base es:</p>
+    <ul class="clean">
+      <li data-k="1."><strong>Duración total: modestamente por debajo del benchmark.</strong> El grueso del DV01 y de la volatilidad de <em>mark-to-market</em> vive en el tramo largo, y es justamente el componente menos anclado a expectativas (la prima) el de colas más gruesas. En lenguaje de riesgo de mercado: recortar <em>key-rate duration</em> en 20–30Y reduce la contribución al VaR —y sobre todo al Stress-VaR— por unidad de <em>carry</em> sacrificado.</li>
+      <li data-k="2."><strong>Barbell cargado al belly (2–5Y).</strong> Con la curva de nuevo positiva (2s10s +31 pb), el belly ofrece <em>carry</em> alto y <em>roll-down</em> favorable, y ahí la senda de la Fed está mayormente descontada. Se sobrepondera 2–5Y y se infrapondera explícitamente 20–30Y: un barbell con sesgo a empinar, neutral o corto en duración.</li>
+      <li data-k="3."><strong>Sleeve de crédito EM / Perú USD: carry de calidad, no compresión.</strong> Con el EMBIG cerca de mínimos, el recorrido de compresión adicional es limitado; Perú funciona como ancla defensiva de grado de inversión más que como fuente de alfa de spread. Preferible acortar <em>spread duration</em> o rotar parte hacia nombres con más colchón. El soberano en soles (~5.5% nominal) ofrece <em>carry</em> real bajo una tesis de desinflación, pero introduce riesgo FX (PEN) que debe presupuestarse aparte.<a class="fn" href="#f14">14</a></li>
+      <li data-k="4."><strong>Cobertura de cola en TIPS.</strong> Con la propia Fed proyectando PCE de 3.6% y un shock energético en curso, una asignación modesta a TIPS cubre precisamente la cola que invalida la tesis de recortes: inflación que no cede y obliga a subir.</li>
+    </ul>
+  </section>
+
+  <!-- 7. RIESGOS -->
+  <section>
+    <div class="sec-head"><span class="sec-num">07</span><h2>Riesgos al escenario central</h2></div>
+
+    <div class="scen">
+      <h3><span class="tag a">Escenario A</span> Reaceleración y subida (bear-flattening / re-inversión)</h3>
+      <p>El shock energético persiste, la inflación se ancla por encima de 4% y Warsh entrega una subida. El corto se vende más, el 2s10s vuelve a aplanarse o invertirse. Es el escenario que más castiga al belly sobrepesado; el infrapeso en el largo ayuda poco si el largo <em>no</em> se vende (miedo de crecimiento → posible bull-flattening del extremo). Riesgo de error de política.</p>
+    </div>
+    <div class="scen">
+      <h3><span class="tag b">Escenario B</span> Blow-out fiscal / de prima (bear-steepener)</h3>
+      <p>Los <em>refunding</em>, la demanda extranjera en meseta y el déficit reavivan el foco de oferta, como en mayo. La prima 10Y vuelve a escalar hacia o por encima de sus máximos y el 30Y lidera un empinamiento a la baja de precios. <strong>Es el escenario que valida el infrapeso al largo</strong> y el núcleo de la tesis; en su versión desordenada, los spreads EM se amplían por simpatía y el Perú USD sufre pese a sus fundamentos.</p>
+    </div>
+    <div class="scen">
+      <h3><span class="tag c">Escenario C</span> Susto de crecimiento / giro dovish (bull-steepener)</h3>
+      <p>El mercado laboral se quiebra (el dato débil de junio es un primer indicio) y la Fed recorta pese a la inflación. El corto rallea con fuerza, la curva empina al alza de precios; el largo sube menos si la prima queda pegajosa. Aquí el sobrepeso al belly rinde y el infrapeso al largo cuesta poco; convendría <em>añadir</em> duración al confirmarse. Para Perú, señal mixta: su beta a <em>commodities</em> puede ampliar el spread en un susto global aun con UST en rally.</p>
+    </div>
+  </section>
+
+  <!-- 8. CONCLUSIÓN -->
+  <section>
+    <div class="sec-head"><span class="sec-num">08</span><h2>Conclusión</h2></div>
+    <p>El error analítico dominante de 2026 es leer el 10Y con el <em>dot plot</em>. La descomposición ACM deja claro que el tramo corto es una historia de expectativas de la Fed —bien descontadas— y el tramo largo es una historia de prima por plazo, que pasó de negativa a positiva y hoy es la variable oscilante. Se posiciona en consecuencia: <strong>infrapeso de duración, barbell cargado al belly, infrapeso explícito en 20–30Y por asimetría de oferta/prima, Perú USD como carry de calidad y no como trade de compresión, y una cobertura de cola en TIPS.</strong> Los dos catalizadores a vigilar no son los <em>dots</em>, sino el próximo <em>refunding</em> trimestral del Tesoro y la trayectoria de la inflación energética. Se reevalúa con esos dos <em>triggers</em>.</p>
+  </section>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+    <span class="ct">Bajada para home — ~150 palabras</span>
+    <p>La venta de Treasuries de 2026 fue asimétrica: el 2Y subió ~60 pb y el 10Y solo ~19 pb, un bear-flattening que dice que el mercado eliminó los recortes y ve una Fed con sesgo a subir (dot 2026 en 3.8%). Pero el nivel del tramo largo no lo explica la Fed: lo explica el term premium. La descomposición ACM del NY Fed muestra expectativas bien ancladas y una prima por plazo que volvió a positiva tras una década, hoy en ~0.47% (desde ~0.83% en mayo) y sensible a la oferta fiscal. Para el crédito peruano, el EMBIG en ~109 pb —cerca de mínimos, impulsado por términos de intercambio y cuentas externas— abarata el spread pero deja expuesta la tasa base en dólares. Táctica para un portafolio UHNW: infraponderar duración, barbell cargado al belly, infrapeso en 20–30Y y cobertura de cola en TIPS.</p>
+    <div class="wc">≈ 150 palabras · listo para pegar en umeres.pe</div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources">
+    <h2>Fuentes</h2>
+    <ol class="src">
+      <li id="f1"><b>Departamento del Tesoro de EE.UU.</b> — Daily Treasury Par Yield Curve Rates, 2026. Curva par CMT al 26-jun-2026 (último dato del mes consultado).</li>
+      <li id="f2"><b>Federal Reserve Bank of New York</b> — Treasury Term Premia (modelo ACM de Adrian, Crump &amp; Moench), descripción metodológica; modelo de cinco factores sin arbitraje, plazos 1–10 años.</li>
+      <li id="f3"><b>NY Fed / ACM</b> vía agregador MacroMicro — TP 10Y en 0.47%–0.48% al 29-jun-2026.</li>
+      <li id="f4"><b>Análisis de descomposición ACM</b> (Ferrante Capital; Eco3min) sobre datos NY Fed — TP 10Y de 0.73% (cierre abr-2026, 10Y=4.45%=3.72%+0.73%), pico ~0.83% (15-may), percentil ~35 en 65 años; contexto de régimen y taper tantrum 2013. Triangulación con Kim-Wright (Junta de la Fed): 0.62% en abr-2026 (FRED, THREEFYTP10).</li>
+      <li id="f5"><b>Reserva Federal</b> — Comunicado FOMC y Summary of Economic Projections del 17-jun-2026 (mediana fin-2026 en 3.8%, neutral 3.1%, PCE 3.6%/3.3%), vía cobertura de CNBC/StockTitan/REX Shares.</li>
+      <li id="f6"><b>Banco Central de Reserva del Perú (BCRP)</b> — Resumen Informativo Semanal, 4-jun-2026: EMBIG Perú en 109 pb al 3-jun-2026 (−6 pb en la semana; −7 pb en mayo). Serie diaria PD04709XD.</li>
+      <li id="f7"><b>CME FedWatch</b> / Investing.com — probabilidades implícitas de fed funds futures; sin recortes 2026, ~40% de subida a dic, hold ~75.6% (4-jul). Dato de empleo de junio (57 mil NFP) vía ING/Navellier.</li>
+      <li id="f8"><b>Reserva Federal</b> — Comunicado del 17-jun-2026 (hold 12-0, rango 3.50–3.75%); presidencia de Kevin Warsh desde mediados de mayo de 2026.</li>
+      <li id="f9"><b>BLS / cobertura de prensa</b> — CPI de mayo 2026 en 4.2% interanual; shock energético asociado al conflicto en Medio Oriente.</li>
+      <li id="f10"><b>Peru-Retail / Nota Semanal BCRP</b> — trayectoria EMBIG Perú: 127 pb (dic-25) → 138 pb (7-ene) → 144 pb (inicios de marzo); Latin EMBIG ~314 pb.</li>
+      <li id="f11"><b>S&amp;P Global Ratings</b> — Perú BBB−/A-3, perspectiva estable (afirmación).</li>
+      <li id="f12"><b>Moody's Ratings</b> — Perú Baa1, perspectiva estable; balance soberano entre los más fuertes de la categoría Baa (deuda baja, vida media &gt;12 años, ahorros fiscales ~10% del PBI).</li>
+      <li id="f13"><b>Gestión (opinión) citando S&amp;P Global Ratings</b> — riesgos de gobernanza y fragmentación política de cara a las elecciones de 2026; presiones de gasto (CAS→728, Petroperú).</li>
+      <li id="f14"><b>Gestión / PCR</b> — rendimiento del bono soberano peruano en soles a 10 años: 5.52% (12-ene-2026); caída de ~20 pb entre fines de mayo e inicios de junio.</li>
+    </ol>
+    <div class="disc">
+      <strong>Aviso.</strong> Este documento es una nota de análisis con fines informativos y educativos elaborada a título personal por el autor. No constituye asesoría de inversión, legal ni tributaria, ni una recomendación personalizada de compra o venta de instrumento alguno, y no refleja necesariamente la posición de las instituciones a las que el autor esté vinculado. Las cifras provienen de fuentes públicas citadas y corresponden a distintas fechas de corte, indicadas en cada caso; el term premium es una estimación de modelo (no observable) y debe leerse como rango. Los datos pueden haber variado desde la publicación. El desempeño pasado no garantiza resultados futuros.
+    </div>
+  </div>
+
+  </div><!-- /body pad group -->
+  </div><!-- /pad -->
+</article>
+</body>
+</html>

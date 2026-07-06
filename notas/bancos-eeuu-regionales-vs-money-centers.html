@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bancos EE. UU. post-ciclo Fed: regionales vs. money-centers — Diego Umeres</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#12233f;
+    --navy-deep:#0c1a30;
+    --ink:#1b2432;
+    --paper:#f6f3ec;
+    --paper-card:#fbf9f4;
+    --brass:#a97f42;
+    --brass-bright:#c69a52;
+    --rule:#d8cfbd;
+    --rule-soft:#e6ddce;
+    --muted:#5d6473;
+    --pos:#2f6b52;
+    --neg:#9a3b34;
+    --warn:#8a6d2f;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:18px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    font-optical-sizing:auto;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    border-bottom:2px solid var(--navy);
+    padding:34px 0 18px;
+    margin-top:26px;
+  }
+  .kicker{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--brass);
+    font-weight:600;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+    margin-bottom:20px;
+  }
+  h1.title{
+    font-weight:600;
+    font-size:40px;
+    line-height:1.12;
+    letter-spacing:-.012em;
+    margin:0 0 14px;
+    color:var(--navy-deep);
+  }
+  .standfirst{
+    font-size:20px;
+    line-height:1.5;
+    color:#3a4252;
+    font-style:italic;
+    margin:0 0 20px;
+    max-width:44em;
+  }
+  .byline{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12px;
+    letter-spacing:.03em;
+    color:var(--muted);
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 22px;
+    padding-top:6px;
+  }
+  .byline strong{color:var(--ink);font-weight:600;}
+
+  /* ---------- Rating box (hero/thesis) ---------- */
+  .rating{
+    background:var(--navy);
+    color:#efe9dc;
+    border-radius:3px;
+    margin:30px 0 6px;
+    padding:26px 30px 24px;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:0 30px;
+    align-items:stretch;
+  }
+  .rating .verdict{
+    border-right:1px solid rgba(198,154,82,.35);
+    padding-right:28px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-width:186px;
+  }
+  .rating .verdict .lab{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--brass-bright);margin-bottom:7px;
+  }
+  .rating .verdict .call{
+    font-size:26px;font-weight:600;line-height:1.15;color:#fff;letter-spacing:-.01em;
+  }
+  .rating .verdict .call small{display:block;font-size:14px;font-weight:400;color:#c9c2b2;font-style:italic;margin-top:6px;letter-spacing:0;}
+  .rating .body{padding-left:2px;}
+  .rating .body p{margin:0;font-size:16.5px;line-height:1.55;color:#e7e1d3;}
+  .rating .body p+p{margin-top:11px;}
+  .rating .body .tag{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.04em;
+    color:var(--brass-bright);
+  }
+
+  /* ---------- Section scaffolding ---------- */
+  section{padding-top:38px;}
+  .sec-head{
+    display:flex;align-items:baseline;gap:14px;
+    border-bottom:1px solid var(--navy);
+    padding-bottom:8px;margin-bottom:20px;
+  }
+  .sec-num{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:13px;font-weight:600;color:var(--brass);
+    letter-spacing:.05em;
+  }
+  h2{
+    font-weight:600;font-size:25px;letter-spacing:-.01em;
+    color:var(--navy-deep);margin:0;line-height:1.2;
+  }
+  h3{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--brass);margin:26px 0 9px;
+  }
+  p{margin:0 0 15px;}
+  a{color:var(--navy);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:2px;}
+  a:hover{text-decoration-color:var(--brass);}
+  strong{font-weight:600;}
+  .lead{font-size:19.5px;line-height:1.58;}
+
+  /* ---------- Data tables ---------- */
+  .tbl-wrap{overflow-x:auto;margin:8px 0 10px;border:1px solid var(--rule);border-radius:2px;}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:640px;}
+  caption{
+    caption-side:top;text-align:left;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);padding:11px 14px 9px;background:var(--paper-card);border-bottom:1px solid var(--rule);
+  }
+  thead th{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+    font-weight:600;color:#fff;background:var(--navy);
+    padding:9px 12px;text-align:right;white-space:nowrap;border-bottom:2px solid var(--brass);
+  }
+  thead th:first-child{text-align:left;}
+  tbody td{
+    font-family:"IBM Plex Mono",monospace;font-size:13px;
+    padding:8px 12px;text-align:right;border-bottom:1px solid var(--rule-soft);white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  tbody td:first-child{
+    text-align:left;font-family:"Newsreader",serif;font-size:15px;font-weight:500;color:var(--navy-deep);
+    white-space:normal;
+  }
+  tbody tr:nth-child(even){background:rgba(214,205,187,.16);}
+  tbody tr.grp td{
+    background:var(--navy-deep);color:var(--brass-bright);
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    text-align:left;padding:5px 12px;font-weight:600;
+  }
+  .pos{color:var(--pos);}
+  .neg{color:var(--neg);}
+  .tbl-note{font-size:12.5px;color:var(--muted);font-style:italic;line-height:1.5;margin:2px 0 4px;}
+
+  /* ---------- Callout / flag ---------- */
+  .flag{
+    border-left:3px solid var(--warn);
+    background:rgba(138,109,47,.07);
+    padding:13px 18px;margin:16px 0;
+    font-size:15px;line-height:1.55;color:#4a4636;
+  }
+  .flag b{color:var(--warn);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px;}
+
+  .pull{
+    font-size:22px;line-height:1.4;font-style:italic;color:var(--navy);
+    border-top:1px solid var(--navy);border-bottom:1px solid var(--navy);
+    padding:18px 0;margin:26px 0;font-weight:400;
+  }
+
+  /* ---------- References ---------- */
+  .refs{padding-top:38px;}
+  .refs h3{color:var(--navy-deep);border-bottom:1px solid var(--rule);padding-bottom:6px;}
+  ol.reflist{margin:0 0 6px;padding-left:0;list-style:none;counter-reset:ref;}
+  ol.reflist li{
+    font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:1.5;
+    padding:9px 0 9px 34px;border-bottom:1px solid var(--rule-soft);position:relative;color:#3d434f;
+  }
+  ol.reflist li::before{
+    counter-increment:ref;content:counter(ref,decimal-leading-zero);
+    position:absolute;left:0;top:9px;color:var(--brass);font-weight:600;font-size:11px;
+  }
+  ol.reflist li .src{color:var(--navy-deep);font-weight:600;}
+  ol.reflist li a{word-break:break-all;color:var(--muted);text-decoration:none;font-size:11.5px;}
+  ol.reflist li a:hover{color:var(--brass);}
+
+  /* ---------- Preview card ---------- */
+  .preview{
+    background:var(--navy);color:#ece6d8;border-radius:3px;
+    padding:26px 30px;margin:40px 0 10px;
+  }
+  .preview .lab{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--brass-bright);margin-bottom:12px;border-bottom:1px solid rgba(198,154,82,.3);padding-bottom:9px;
+  }
+  .preview p{font-size:16px;line-height:1.55;margin:0;color:#e7e1d3;}
+  .preview .wc{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:#a89f8c;margin-top:12px;letter-spacing:.05em;}
+
+  footer.legal{
+    margin:44px 0 60px;padding-top:16px;border-top:1px solid var(--rule);
+    font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.6;color:var(--muted);
+  }
+
+  @media(max-width:640px){
+    body{font-size:16.5px;}
+    h1.title{font-size:30px;}
+    .rating{grid-template-columns:1fr;}
+    .rating .verdict{border-right:0;border-bottom:1px solid rgba(198,154,82,.35);padding-right:0;padding-bottom:16px;margin-bottom:16px;}
+    .rating .body{padding-left:0;}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="kicker">
+      <span>Umeres Research · Nota comparativa</span>
+      <span>Sector financiero · EE. UU.</span>
+    </div>
+    <h1 class="title">Bancos de EE. UU. después del ciclo de la Fed: regionales frente a money-centers</h1>
+    <p class="standfirst">El pico de tasas ya pasó, pero las bajadas se congelaron. En ese limbo, el margen, la calidad de la cartera inmobiliaria comercial y el múltiplo sobre valor tangible separan a dos grupos que el mercado sigue tratando como uno.</p>
+    <div class="byline">
+      <span><strong>Diego Umeres</strong> — Economista (UNMSM), CFA Level I</span>
+      <span>Analista de Gestión Patrimonial</span>
+      <span>04 de julio de 2026</span>
+    </div>
+  </header>
+
+  <!-- ============ RATING / THESIS ============ -->
+  <div class="rating">
+    <div class="verdict">
+      <div class="lab">Postura relativa</div>
+      <div class="call">Sobreponderar regionales de calidad<small>vs. money-centers a precio pleno</small></div>
+    </div>
+    <div class="body">
+      <p>Los <strong>regionales</strong> operan con márgenes de interés estructuralmente más altos (2.9 %–3.7 %) que los <strong>money-centers</strong> (≈2.1 %–3.0 %), con calidad de cartera que mejora y exposición a inmobiliario comercial (CRE) que se está reduciendo activamente — y cotizan cerca o por debajo de su múltiplo histórico sobre valor tangible.</p>
+      <p>Los money-centers ofrecen diversificación y resiliencia superiores a través del ciclo, pero a valorizaciones exigentes: JPMorgan a 2.9x P/TBV, muy por encima de su mediana de diez años. <span class="tag">El riesgo que invalida la tesis: un evento de crédito CRE o una fuga de depósitos, que golpea a los regionales de forma desproporcionada.</span></p>
+    </div>
+  </div>
+
+  <!-- ============ 1. RESUMEN EJECUTIVO ============ -->
+  <section id="resumen">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Resumen ejecutivo</h2></div>
+    <p class="lead">La tesis central en cuatro líneas: el diferencial de valor relativo hoy no está en el grupo más seguro, sino en el más barato en relación con su propia rentabilidad. Los regionales de calidad —M&amp;T, Zions— combinan márgenes altos, crédito que mejora y CRE en descenso, a múltiplos de ≈1.2x–1.5x el valor tangible. Los money-centers son mejores negocios, pero JPMorgan, Bank of America y Wells Fargo ya cotizan por encima de su mediana histórica. La asimetría favorece a los regionales <em>si</em> el crédito aguanta; el propio "si" es la tesis.</p>
+    <p>El sector llega a mediados de 2026 en un punto incómodo del ciclo: la Fed subió hasta 5.25 %–5.50 %, empezó a recortar en septiembre de 2025 y luego se detuvo en seco. Con tasas altas pero estables, los balances a tasa fija reprecian al alza y los costos de depósitos ceden, lo que ha empujado los márgenes de los regionales hacia arriba mientras los money-centers —con menor beta de depósitos pero también menor sensibilidad de activos— mejoran más despacio. La divergencia que el mercado subestima es que el riesgo idiosincrático del grupo regional (CRE) está mejorando en los números reportados, no empeorando.</p>
+  </section>
+
+  <!-- ============ 2. CONTEXTO ============ -->
+  <section id="contexto">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Contexto: cómo llegó el sector al final del ciclo</h2></div>
+    <p>El ciclo de la Fed definió los últimos tres años del sector. Tras subir la tasa de referencia hasta un pico de 5.25 %–5.50 % en 2023, el FOMC recortó tres veces en 2025 —septiembre, octubre y diciembre— hasta el rango actual de <strong>3.50 %–3.75 %</strong>, según registros del FOMC y cobertura de CNBC. Ahí se detuvo: para junio de 2026 el comité acumulaba cuatro reuniones consecutivas sin mover la tasa.</p>
+    <p>El giro relevante de 2026 es la <strong>reaceleración de la inflación</strong>. El shock energético asociado a la guerra con Irán empujó al alza los precios; en la reunión de junio de 2026 —la primera bajo el nuevo presidente <strong>Kevin Warsh</strong>— la Fed revisó su proyección de inflación PCE para 2026 hasta 3.6 %, y nueve de sus miembros pasaron a proyectar al menos <em>una subida</em> de tasas este año, según el Summary of Economic Projections y la lectura de Charles Schwab. Bank of America no espera recortes hasta julio de 2027; J.P. Morgan Global Research ve a la Fed en pausa el resto de 2026 y una subida en septiembre de 2027. El bono a 10 años ronda 4.30 %, por encima de lo que la mayoría de modelos bancarios asumían.</p>
+    <p>Para los bancos, "tasas altas por más tiempo" es un arma de doble filo: sostiene los rendimientos de los activos y da margen para que los depósitos abaraten (el <em>lag</em> del beta a la baja), pero mantiene bajo presión los valores de la cartera inmobiliaria comercial y el costo de la financiación mayorista. El agregado del sistema —seguido en el reporte semanal <strong>H.8</strong> de la Fed— muestra un crédito bancario que crece de forma moderada, con la cartera CRE prácticamente lateral mientras los bancos la depuran. La otra fuerza estructural es la <strong>consolidación</strong>: el 1 de febrero de 2026 Fifth Third cerró la compra de Comerica (operación en acciones de ≈US$12.7 mil millones), retirando a uno de los regionales más citados por su exposición CRE del universo de nombres independientes.</p>
+    <div class="flag"><b>Nota metodológica — H.8</b>El reporte H.8 se usa aquí para caracterizar la tendencia agregada del sistema (crecimiento de crédito, depósitos y CRE), no como fuente de cifras por banco. Las métricas por institución provienen de los 8-K/10-Q del primer trimestre de 2026 de cada emisor.</div>
+  </section>
+
+  <!-- ============ 3. MÉTRICAS CLAVE ============ -->
+  <section id="metricas">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Métricas clave comparadas (1T 2026)</h2></div>
+    <p>La comparación cubre cuatro regionales —KeyCorp, Zions, Regions y M&amp;T Bank (este último en reemplazo de Comerica, ya absorbida por Fifth Third)— frente a los cuatro money-centers. Todas las cifras corresponden a resultados del primer trimestre de 2026 reportados en abril de 2026.</p>
+
+    <h3>Margen de interés neto (NIM) y su evolución</h3>
+    <div class="tbl-wrap">
+    <table>
+      <caption>NIM base equivalente-gravable · 1T 2026 vs. trimestre previo y año previo</caption>
+      <thead><tr><th>Banco</th><th>NIM 1T26</th><th>vs. 4T25</th><th>vs. 1T25</th><th>Guía / lectura</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="5">Regionales</td></tr>
+        <tr><td>M&amp;T Bank (MTB)</td><td>3.71 %</td><td class="pos">+2 pb</td><td class="pos">+5 pb</td><td>NIM ~"3.60s altos" 2026</td></tr>
+        <tr><td>Regions (RF)</td><td>3.67 %</td><td class="neg">−3 pb</td><td class="pos">+15 pb</td><td>desde 3.52 % un año antes</td></tr>
+        <tr><td>Zions (ZION)</td><td>3.27 %</td><td class="neg">−4 pb</td><td class="pos">+17 pb</td><td>desde 3.10 %; NII +7–8 % guía</td></tr>
+        <tr><td>KeyCorp (KEY)</td><td>2.87 %</td><td class="pos">+5 pb</td><td class="pos">+29 pb</td><td>objetivo salir 2026 ~3.05 %</td></tr>
+        <tr class="grp"><td colspan="5">Money-centers</td></tr>
+        <tr><td>JPMorgan (JPM)</td><td>≈3.0 %*</td><td>—</td><td>—</td><td>*base "bank-only" mar-26</td></tr>
+        <tr><td>Wells Fargo (WFC)</td><td>2.47 %</td><td class="neg">−13 pb</td><td class="neg">−20 pb</td><td>NII trimestral bajo consenso</td></tr>
+        <tr><td>Citigroup (C)</td><td>≈2.4 %†</td><td>—</td><td>—</td><td>†estimado, ver aviso</td></tr>
+        <tr><td>Bank of America (BAC)</td><td>≈2.1 %</td><td>—</td><td>—</td><td>NII FTE +9 % a/a</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-note">Fuentes: 8-K/comunicados 1T26 de cada banco; NIM "bank-only" de JPM vía GuruFocus (mar-2026); NIM BAC vía cobertura de resultados. Los regionales reportan NIM base equivalente-gravable; los money-centers usan el "net yield on interest-earning assets", conceptualmente comparable pero no idéntico.</p>
+
+    <div class="flag"><b>Aviso de dato incierto — NIM de JPM y Citi</b>No pude confirmar en fuentes primarias un NIM consolidado único de JPMorgan ni de Citigroup para el 1T26 con la misma base que reportan los regionales. Para JPM uso su NIM "bank-only" de ≈2.99 % (GuruFocus, mar-2026) como aproximación; el "net yield" consolidado de la firma suele ubicarse algo por debajo. Para Citi, ≈2.4 % es un estimado de orden de magnitud, no una cifra reportada — trátese como referencial.</div>
+
+    <p>La lectura es nítida: los regionales operan entre <strong>2.9 % y 3.7 %</strong> de margen, y salvo por compresiones secuenciales menores (Zions, Regions, por menos días de calendario y repricing de activos a la baja), la tendencia interanual es de expansión. Los money-centers, con la excepción parcial de JPMorgan, operan un escalón por debajo: Bank of America todavía "muele" su cartera de valores a vencimiento a bajo rendimiento y su NIM ronda apenas 2.1 %; Wells Fargo comprimió a 2.47 % pese a crecer préstamos con fuerza. La ventaja estructural de margen es del grupo regional; la ventaja de <em>estabilidad</em> del margen es del grupo money-center.</p>
+
+    <h3>Costo y estabilidad de depósitos (deposit beta)</h3>
+    <p>El beta de depósitos —cuánto del movimiento de tasas se traslada al costo de fondeo— es el otro eje. Los money-centers cargan con depósitos operativos y minoristas más "pegajosos" y de menor costo: Bank of America reportó su <strong>undécimo trimestre consecutivo</strong> de crecimiento de depósitos, con un promedio de US$2.02 billones, y JPMorgan cerró con ≈US$2.68 billones. Esa base transaccional les da un beta a la baja menor —los depósitos no abaratan tan rápido como en un regional— pero también un piso de costo más bajo.</p>
+    <p>Los regionales muestran betas más altos y sensibles. M&amp;T guía a un beta de depósitos con interés en el rango de "50 % bajo a medio" a medida que las tasas bajen, replicando lo visto en el ciclo de subidas; Zions redujo activamente su dependencia de <em>brokered deposits</em> y financiación mayorista de corto plazo, elevando la calidad de su base, y KeyCorp atribuyó buena parte de su expansión de NIM justamente a la caída de costos de depósitos. La conclusión práctica: en un entorno de tasas estables o a la baja, el beta más alto de los regionales es un <em>tailwind</em> de margen — el mismo apalancamiento que fue un lastre cuando las tasas subían.</p>
+
+    <h3>Crecimiento de cartera de préstamos</h3>
+    <div class="tbl-wrap">
+    <table>
+      <caption>Cartera de préstamos · 1T 2026</caption>
+      <thead><tr><th>Banco</th><th>Préstamos prom.</th><th>Crec. a/a</th><th>Depósitos prom.</th><th>Comentario de mezcla</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="5">Regionales</td></tr>
+        <tr><td>M&amp;T Bank</td><td>US$138.4 B</td><td class="pos">+3 %</td><td>US$164.3 B</td><td>C&amp;I al alza; CRE −US$2.8 B</td></tr>
+        <tr><td>KeyCorp</td><td>US$107.7 B</td><td class="pos">+comercial 4 % t/t</td><td>US$147.3 B</td><td>remix consumo → C&amp;I</td></tr>
+        <tr><td>Zions</td><td>US$61.3 B</td><td class="pos">+2 %</td><td>US$76.9 B</td><td>L/D 80 %; menor riesgo CRE</td></tr>
+        <tr class="grp"><td colspan="5">Money-centers</td></tr>
+        <tr><td>Wells Fargo</td><td>&gt;US$1.0 B (bill.)</td><td class="pos">+11 %</td><td>—</td><td>&gt;US$1 billón por 1ª vez desde 2020</td></tr>
+        <tr><td>Bank of America</td><td>US$1.19 B (bill.)</td><td class="pos">creciendo</td><td>US$2.02 B (bill.)</td><td>crecimiento amplio</td></tr>
+        <tr><td>JPMorgan</td><td>US$0.58 B (CCB)</td><td>+1 % (CCB)</td><td>US$2.68 B (firma)</td><td>tarjeta +6 %; hipoteca refi +46 %</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-note">"B" = mil millones; "bill." = billón (10¹²). Cifras de JPM corresponden al segmento Consumer &amp; Community Banking (CCB) salvo depósitos de firma. Wells Fargo cruzó US$1 billón de préstamos por primera vez desde principios de 2020.</p>
+    <p>El patrón de mezcla es tan importante como el volumen. Los regionales están rotando hacia <strong>C&amp;I</strong> (comercial e industrial) y reduciendo CRE: M&amp;T recortó US$2.8 mil millones de cartera inmobiliaria comercial en el año, y KeyCorp lleva trimestres remezclando desde préstamos de consumo de bajo rendimiento hacia crédito comercial de mayor rendimiento — el motor detrás de su salto de NIM. Wells Fargo crece préstamos con fuerza (+11 % a/a) recién liberado de su tope de activos, aunque su NII no acompañó el volumen por compresión de rendimiento.</p>
+  </section>
+
+  <!-- ============ 4. CALIDAD DE CARTERA ============ -->
+  <section id="calidad">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Calidad de cartera y exposición CRE</h2></div>
+    <p>Aquí está el riesgo idiosincrático que define al grupo regional hoy — y el dato que sorprende: en los números reportados del 1T26, la calidad de cartera <strong>mejora</strong>, no se deteriora.</p>
+    <div class="tbl-wrap">
+    <table>
+      <caption>Calidad de activos · 1T 2026</caption>
+      <thead><tr><th>Banco</th><th>NPA / activos improd.</th><th>Charge-offs netos</th><th>Provisión (ACL)</th><th>CET1</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="5">Regionales</td></tr>
+        <tr><td>Zions</td><td>0.48 %</td><td>0.03 %</td><td>1.16 % (cob. 239 %)</td><td>11.5 %</td></tr>
+        <tr><td>KeyCorp</td><td>0.63 %</td><td>0.38 %</td><td>1.60 %</td><td>11.4 %</td></tr>
+        <tr><td>M&amp;T Bank</td><td>0.89 % (no acumul.)</td><td>0.31 %</td><td>1.53 %</td><td>10.33 %</td></tr>
+        <tr><td>Regions</td><td>n/d en esta nota</td><td>n/d</td><td>n/d</td><td>n/d</td></tr>
+        <tr class="grp"><td colspan="5">Money-centers</td></tr>
+        <tr><td>JPMorgan</td><td>tarjeta NCO 3.47 %</td><td>0.03 % hipoteca (recup.)</td><td>—</td><td>14.3 %</td></tr>
+        <tr><td>Bank of America</td><td>—</td><td>—</td><td>—</td><td>11.2 %</td></tr>
+        <tr><td>Citigroup</td><td>—</td><td>—</td><td>—</td><td>12.7 %</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-note">NPA = activos improductivos sobre préstamos + OREO. Cobertura de Zions = ACL sobre préstamos no devengados (239 %). JPM: la NCO de 3.47 % corresponde a su cartera de tarjetas (consumo), no comparable con el ratio de NPA de un regional. "n/d" indica que el dato no fue capturado para esta nota; ver aviso.</p>
+
+    <div class="flag"><b>Aviso de dato incompleto — Regions y detalle CRE</b>Para Regions (RF) confirmé el NIM (3.67 %) pero no capturé en fuentes primarias sus ratios de NPA, cobertura y CRE del 1T26 con el mismo nivel de detalle que los demás regionales; se dejan como "n/d" antes que estimarlos. Del mismo modo, los porcentajes exactos de CRE sobre cartera total por banco no se tabulan aquí: la evidencia disponible es direccional (M&amp;T y Zions reduciendo CRE) más que un desglose línea por línea.</p></div>
+
+    <p>La foto de crédito de los regionales es notablemente sólida. Zions reportó charge-offs netos de apenas <strong>3 puntos básicos</strong> anualizados, con NPA cayendo a 0.48 % y una cobertura de 239 % sobre préstamos no devengados; sus balances clasificados bajaron, explícitamente por <em>menor</em> riesgo CRE. M&amp;T redujo sus activos improductivos 20 % interanual y recortó US$700 millones de balances "criticized", con ningún <em>charge-off</em> individual mayor a US$10 millones — el perfil de un deterioro granular y controlado, no sistémico. KeyCorp mantuvo NPA en 0.63 % y de hecho es un <strong>servicer</strong> gigante de CRE (≈US$720 mil millones administrados, de los cuales ≈US$265 mil millones en <em>special servicing</em>), un negocio contracíclico que se beneficia cuando el estrés CRE aparece en la industria, más que sufrirlo directamente.</p>
+    <p>El contraste con 2023 es el punto. El nombre históricamente más señalado por CRE en este universo —Comerica— ya no cotiza solo: Fifth Third lo absorbió en febrero de 2026, precisamente el tipo de resolución ordenada (por adquisición, no por quiebra) que indica que el sistema está digiriendo el problema CRE en lugar de romperse por él. Los money-centers, por su diversificación, tienen exposición CRE proporcionalmente menor y colchones de capital mayores (JPM CET1 14.3 %), pero también menos <em>upside</em> de margen.</p>
+    <p class="pull">El riesgo CRE del grupo regional es real, pero en los reportes del 1T26 se está reduciendo activamente. La tesis bajista requiere que eso se revierta; los datos aún no lo muestran.</p>
+  </section>
+
+  <!-- ============ 5. VALORIZACIÓN ============ -->
+  <section id="valorizacion">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Valorización comparada: P/TBV</h2></div>
+    <p>El precio sobre valor contable tangible (P/TBV) es el múltiplo de referencia en bancos: relaciona el precio con el patrimonio tangible que quedaría tras restar intangibles y goodwill, y se ancla en la rentabilidad sobre ese patrimonio (ROTCE). Como referencia, la mediana de la industria bancaria ronda <strong>1.12x</strong>; los money-centers suelen ubicarse entre 1.5x y 3.0x, y los regionales bien gestionados entre 1.0x y 2.0x.</p>
+    <div class="tbl-wrap">
+    <table>
+      <caption>P/TBV y valor tangible por acción · mediados de 2026</caption>
+      <thead><tr><th>Banco</th><th>TBV / acción (1T26)</th><th>P/TBV actual</th><th>Mediana 10 años</th><th>Prima / (descuento)</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="5">Money-centers</td></tr>
+        <tr><td>JPMorgan</td><td>US$104.39</td><td>2.87x</td><td>2.00x</td><td class="neg">+44 %</td></tr>
+        <tr><td>Bank of America</td><td>US$28.84</td><td>≈2.0x*</td><td>~1.7x</td><td class="neg">prima moderada</td></tr>
+        <tr><td>Wells Fargo</td><td>US$43.03</td><td>1.78x</td><td>1.61x</td><td class="neg">+11 %</td></tr>
+        <tr><td>Citigroup</td><td>US$99.01</td><td>1.32x</td><td>0.83x</td><td class="neg">+59 %</td></tr>
+        <tr class="grp"><td colspan="5">Regionales (P/TBV aproximado)</td></tr>
+        <tr><td>M&amp;T Bank</td><td>US$115.96</td><td>≈1.3–1.5x†</td><td>~1.4x</td><td>~en línea</td></tr>
+        <tr><td>Zions</td><td>US$41.75</td><td>≈1.2–1.3x†</td><td>~1.1x</td><td>~en línea</td></tr>
+        <tr><td>KeyCorp</td><td>US$13.60</td><td>≈1.2–1.3x†</td><td>~1.2x</td><td>~en línea</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-note">TBV/acción del 1T26 según 8-K de cada banco. P/TBV de money-centers vía GuruFocus (JPM 30-may, Citi 6-may, WFC 29-may 2026). *BAC: derivado de su P/B de 1.50x (26-jun) ajustado por la relación valor-libro/valor-tangible; aproximado. †Regionales: P/TBV estimado a partir del TBV/acción reportado y precios de mercado de mediados de 2026; trátense como aproximaciones, no cotizaciones exactas.</p>
+
+    <div class="flag"><b>Aviso de dato aproximado — P/TBV de regionales</b>Confirmé el valor tangible por acción del 1T26 de cada regional (dato duro de sus 8-K), pero no una cotización P/TBV en vivo de KeyCorp, Zions y M&amp;T con la misma precisión y fecha que las de los money-centers. Los rangos ≈1.2x–1.5x son estimaciones razonables sobre la banda histórica del grupo, señaladas como tales.</div>
+
+    <p>La dispersión cuenta la historia. <strong>JPMorgan cotiza a 2.87x el valor tangible</strong>, un 44 % por encima de su mediana de diez años (2.00x) — un negocio excepcional a un precio que descuenta buena parte de su calidad. El caso más llamativo es <strong>Citigroup</strong>: a 1.32x, sigue siendo el más barato de los cuatro grandes, pero se ha re-valorizado un 59 % sobre su mediana de diez años (0.83x) conforme el mercado premia su plan de simplificación y la opcionalidad del IPO de Banamex. Wells Fargo, ya sin su tope de activos, cotiza a 1.78x, algo por encima de su mediana.</p>
+    <p>Frente a eso, los regionales de calidad cotizan cerca de su propia mediana histórica —M&amp;T ≈1.3x–1.5x, Zions y KeyCorp ≈1.2x–1.3x— <em>a pesar</em> de márgenes en expansión y crédito que mejora. No es que estén regalados; es que no pagan la prima que sí pagan los money-centers. Ese es el argumento de valor relativo: comprar expansión de margen y desapalancamiento de CRE a múltiplos normales, en lugar de comprar calidad a múltiplos de récord.</p>
+  </section>
+
+  <!-- ============ 6. RIESGOS ============ -->
+  <section id="riesgos">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Riesgos principales</h2></div>
+    <p><strong>Concentración CRE.</strong> Es el riesgo que define al grupo regional y el que puede invalidar la tesis. Aunque los reportes del 1T26 muestran CRE en descenso y crédito que mejora, un giro en valuaciones inmobiliarias comerciales —oficinas en particular— con tasas largas ancladas cerca de 4.30 % podría materializar pérdidas que hoy solo están provisionadas de forma general. Un regional con exposición concentrada sufre esto de forma no lineal; un money-center lo diluye en un balance diversificado.</p>
+    <p><strong>Fuga de depósitos.</strong> El episodio de 2023 (Silicon Valley Bank, First Republic, Signature) demostró que la estabilidad de depósitos es existencial para los regionales. El beta más alto que hoy es un <em>tailwind</em> de margen se convierte en vulnerabilidad si el sentimiento cambia: los depósitos no asegurados pueden migrar rápido hacia money-centers "too big to fail" o hacia fondos de money market (cuyos activos superan los US$7.9 billones). Zions mitiga esto con liquidez disponible de ≈134 % de sus depósitos no asegurados, pero no todos los regionales tienen ese colchón.</p>
+    <p><strong>Regulación post-2023.</strong> El marco de capital sigue en evolución. Las nuevas propuestas de capital de la Fed podrían, según M&amp;T, aportarle un beneficio de 90–110 puntos básicos de CET1 por sus LTV conservadores — un viento de cola regulatorio para regionales prudentes. Pero la dirección bajo Warsh es incierta: su agenda de "menos es más" (abolir la <em>forward guidance</em>, reducir el balance) podría aliviar la carga regulatoria o introducir volatilidad de comunicación. Los umbrales de Categoría III/IV siguen definiendo qué banco enfrenta qué exigencia según su tamaño.</p>
+    <p><strong>Riesgo de tasas y macro.</strong> Toda la tesis de expansión de margen asume tasas estables o a la baja. Una <em>subida</em> de la Fed —escenario que nueve miembros del FOMC ya contemplan para 2026 por la inflación energética— reabriría presión sobre depósitos y valores a tasa fija. Y una recesión que dispare provisiones golpearía primero al grupo con menor diversificación.</p>
+  </section>
+
+  <!-- ============ 7. CONCLUSIÓN ============ -->
+  <section id="conclusion">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Conclusión: dónde está el valor relativo</h2></div>
+    <p class="lead">El valor relativo hoy está en los <strong>regionales de calidad</strong>, no en el grupo money-center. La razón no es que sean mejores negocios —no lo son—, sino que ofrecen la mejor combinación de margen en expansión, crédito que mejora y CRE en reducción, a múltiplos que no incorporan una prima. Es una tesis de valorización relativa, no de calidad absoluta.</p>
+    <p>La expresión concreta que se desprende del análisis: dentro del grupo regional, <strong>M&amp;T Bank</strong> y <strong>Zions</strong> son los nombres de mayor calidad —M&amp;T por su NIM de 3.71 %, disciplina de capital y reducción activa de CRE; Zions por su crédito casi impecable (3 pb de charge-offs), su desapalancamiento de fondeo mayorista y su colchón de liquidez—. Ambos cotizan cerca de su mediana histórica de P/TBV pese a fundamentos que mejoran. KeyCorp es una apuesta de <em>convergencia</em> de margen (objetivo de salir de 2026 en ≈3.05 %) con opcionalidad en su franquicia de servicing CRE.</p>
+    <p>En los money-centers, la disciplina de precio importa. <strong>JPMorgan a 2.87x el valor tangible</strong> es un negocio soberbio descontado casi por completo: excelente para tener, caro para comprar hoy. El nombre money-center más interesante por valorización es <strong>Citigroup</strong>: aún el más barato de los cuatro grandes en términos absolutos, con opcionalidad de <em>turnaround</em> (simplificación, IPO de Banamex) — aunque su re-rating de 59 % sobre la mediana ya recogió parte de esa historia. Bank of America y Wells Fargo son negocios sólidos a precios plenos, sin la asimetría que justifique sobreponderarlos.</p>
+    <p>La posición implícita, entonces, es un <strong>sesgo hacia regionales de calidad (M&amp;T, Zions) financiado con infraponderación de los money-centers de múltiplo más alto (JPMorgan)</strong>, manteniendo a Citigroup como la excepción money-center por opcionalidad. La disciplina de la tesis está en su condición: funciona <em>mientras</em> el crédito CRE siga mejorando en los reportes. El día que esa tendencia se revierta —y el grupo regional lo mostrará primero en sus <em>criticized balances</em> y NPA— la asimetría se invierte y hay que reducir. Hasta entonces, el mercado está pagando prima por seguridad y descuento por margen; el análisis sugiere estar del lado del margen.</p>
+  </section>
+
+  <!-- ============ 8. REFERENCIAS ============ -->
+  <section class="refs" id="referencias">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Referencias</h2></div>
+    <p class="tbl-note">Todas las fuentes consultadas, organizadas por tipo. Las cifras por banco provienen de comunicados de resultados (8-K) y presentaciones del 1T 2026; las de valorización, de agregadores de datos financieros; el contexto macro, de la Reserva Federal y prensa especializada.</p>
+
+    <h3>Filings y comunicados de resultados (8-K / 10-Q / presentaciones)</h3>
+    <ol class="reflist">
+      <li><span class="src">JPMorgan Chase &amp; Co.</span> — Form 8-K, "1Q26 Earnings Press Release" y "Earnings Presentation", trimestre cerrado el 31-mar-2026 (pub. 14-abr-2026). NII US$25.5 B; utilidad neta US$16.5 B (US$5.94/acción); BV/acción US$128.38; TBV/acción US$104.39; CET1 14.3 %; depósitos prom. firma ≈US$2.68 B (bill.); CCB préstamos prom. US$582.8 B, <em>deposit margin</em> 2.63 %, tarjeta NCO 3.47 %; guía NII 2026 US$103 B. <a href="https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/quarterly-earnings/2026/1st-quarter/a5fd2d13-877b-43b2-8b58-81bad4399c87.pdf">jpmorganchase.com — 1Q26 release</a> · <a href="https://www.sec.gov/Archives/edgar/data/19617/000162828026025013/a1q26_earningsxpresentat.htm">SEC — 8-K presentación</a></li>
+      <li><span class="src">Bank of America Corp.</span> — Form 8-K, resultados 1T26 (pub. 15-abr-2026). Utilidad neta US$8.6 B (+17 %); EPS US$1.11; NII FTE US$15.9 B (+9 % a/a); depósitos prom. US$2.02 B (bill.); préstamos prom. US$1.19 B (bill.); TBV/acción US$28.84; BV/acción US$38.44; CET1 11.2 %; ROTCE 16 %; guía NII 2026 +6–8 %. <a href="https://www.stocktitan.net/sec-filings/BAC/8-k-bank-of-america-corp-de-reports-material-event-8a57fad578cd.html">StockTitan — 8-K BAC 1T26</a> · <a href="https://www.marketscreener.com/news/bank-of-america-earnings-release-q1-2026-ce7f59dad980ff21">MarketScreener — NII FTE serie</a></li>
+      <li><span class="src">Citigroup Inc.</span> — "First Quarter 2026 Results and Key Metrics" (pub. 14-abr-2026). Utilidad neta US$5.8 B (vs. US$4.1 B a/a); BV/acción US$112.22; TBV/acción US$99.01 (+8 % a/a); CET1 12.7 %. <a href="https://www.citigroup.com/rcs/citigpa/storage/public/Earnings/Q12026/2026prqtr1rslt.pdf">citigroup.com — 1Q26 results (PDF)</a></li>
+      <li><span class="src">Wells Fargo &amp; Company</span> — Form 8-K, "Reports First Quarter 2026" (pub. 14-abr-2026). Utilidad neta US$5.3 B; NII US$12.1 B (bajo consenso US$12.3 B); NIM base equiv.-gravable 2.47 % (vs. 2.60 % 4T25, 2.67 % 1T25); préstamos &gt;US$1 billón (+11 % a/a); TBV/acción US$43.03. <a href="https://www.sec.gov/Archives/edgar/data/72971/000007297126000213/wfc1qer04-14x26ex991xrelea.htm">SEC — 8-K WFC 1T26</a> · <a href="https://www.wellsfargo.com/assets/pdf/about/investor-relations/earnings/first-quarter-2026-earnings.pdf">wellsfargo.com — earnings 1T26 (PDF)</a></li>
+      <li><span class="src">KeyCorp</span> — "KeyCorp Reports First Quarter 2026", 8-K (pub. 16-abr-2026). Utilidad US$486 M (US$0.44/acción, +33 % a/a); NIM 2.87 % (+5 pb t/t, desde 2.58 % a/a); préstamos prom. US$107.7 B; depósitos prom. US$147.3 B; NPA 0.63 %; NCO 0.38 %; ACL 1.60 %; CET1 11.4 %; TBV/acción US$13.60; ≈US$720 B CRE en servicing (US$265 B special servicing); objetivo NIM salida 2026 ~3.05 %. <a href="https://s23.q4cdn.com/646737342/files/doc_financials/2026/q1/1Q26-Earnings-Release-vF.pdf">KeyCorp — 1Q26 release (PDF)</a> · <a href="https://www.tikr.com/blog/keycorp-beat-q1-2026-earnings-estimates-what-a-25-street-target-means-for-investors">TIKR — guía NIM salida 2026</a></li>
+      <li><span class="src">Zions Bancorporation, N.A.</span> — Form 8-K y 10-Q, 1T26 (pub. abr–may 2026). Utilidad US$232 M (US$1.56/acción); NIM 3.27 % (−4 pb t/t, desde 3.10 % a/a); préstamos US$61.3 B; depósitos US$76.9 B; NPA 0.48 %; NCO 0.03 %; ACL 1.16 % (cobertura 239 %); CET1 11.5 %; TBV/acción US$41.75 (+19 % a/a); L/D 80 %; liquidez ≈134 % de depósitos no asegurados. <a href="https://www.sec.gov/Archives/edgar/data/109380/000010938026000063/exh991earningsrelease20260.htm">SEC — 8-K ZION 1T26</a> · <a href="https://www.stocktitan.net/sec-filings/ZION/10-q-zions-bancorporation-national-association-ut-quarterly-earnings--d40270e28df3.html">StockTitan — 10-Q ZION</a></li>
+      <li><span class="src">Regions Financial Corp.</span> — Form 8-K, exhibit 99.1, 1T26. NIM (FTE) 3.67 % (vs. 3.70 % t/t, 3.52 % a/a). <a href="https://www.sec.gov/Archives/edgar/data/1281761/000128176126000032/rf-2026331xexhibit991.htm">SEC — 8-K RF 1T26</a></li>
+      <li><span class="src">M&amp;T Bank Corp.</span> — Form 8-K y earnings call, 1T26 (pub. 15-abr-2026). Utilidad neta US$664 M; EPS operativo US$4.18; NIM 3.71 % (+2 pb t/t, +5 pb a/a); préstamos prom. US$138.4 B (+3 % a/a; CRE −US$2.8 B); depósitos prom. US$164.3 B; NCO 0.31 %; no devengados 0.89 %; NPA US$1.27 B (−20 % a/a); ACL 1.53 %; CET1 10.33 %; TBV/acción US$115.96 (+4 % a/a); beta de depósitos con interés ~50 % bajo-medio; potencial +90–110 pb CET1 por propuestas de capital de la Fed. <a href="https://www.stocktitan.net/sec-filings/MTB/8-k-m-t-bank-corp-reports-material-event-f06fc20c6274.html">StockTitan — 8-K MTB 1T26</a> · <a href="https://www.fool.com/earnings/call-transcripts/2026/04/15/mt-bank-mtb-q1-2026-earnings-call-transcript/">Motley Fool — transcript MTB</a></li>
+      <li><span class="src">Fifth Third Bancorp</span> — "Reports First Quarter 2026 Earnings", 8-K (pub. 17-abr-2026). Cierre de adquisición de Comerica el 1-feb-2026 (≈US$12.7 B en acciones; +US$46.5 B préstamos comerciales, +US$65.2 B depósitos); NIM combinado 3.30 %. Referencia para la consolidación del sector. <a href="https://ir.53.com/news/news-details/2026/Fifth-Third-Bancorp-Reports-First-Quarter-2026-Earnings/default.aspx">Fifth Third IR — 1Q26</a></li>
+    </ol>
+
+    <h3>Reserva Federal — H.8 y política monetaria</h3>
+    <ol class="reflist">
+      <li><span class="src">Federal Reserve Board</span> — "Assets and Liabilities of Commercial Banks in the United States — H.8", release del 02-jul-2026. Tendencia agregada de crédito bancario, depósitos y cartera CRE del sistema. <a href="https://www.federalreserve.gov/releases/h8/current/">federalreserve.gov/releases/h8</a></li>
+      <li><span class="src">Federal Reserve — FOMC</span> — Minutas de las reuniones del 27–28 de enero y 17–18 de marzo de 2026; Summary of Economic Projections de junio de 2026 (PCE 2026 revisado a 3.6 %; nueve miembros proyectan ≥1 subida). <a href="https://www.federalreserve.gov/monetarypolicy/fomcminutes20260318.htm">FOMC minutas mar-2026</a></li>
+    </ol>
+
+    <h3>Valorización y datos de mercado</h3>
+    <ol class="reflist">
+      <li><span class="src">GuruFocus</span> — Price-to-Tangible-Book: JPM 2.87x (30-may-2026; mediana 10 años 2.00x; precio US$299.31; TBV/acción US$104.39). <a href="https://www.gurufocus.com/term/price-to-tangible-book/JPM">gurufocus.com — P/TBV JPM</a></li>
+      <li><span class="src">GuruFocus</span> — Price-to-Tangible-Book: Citigroup 1.32x (06-may-2026; mediana 10 años 0.83x; precio US$127.60); Wells Fargo 1.78x (29-may-2026; mediana 1.61x; precio US$76.65; TBV/acción US$43.03); NIM "bank-only" JPM 2.99 % (mar-2026); mediana industria P/TBV 1.12x. <a href="https://www.gurufocus.com/term/price-to-tangible-book/C">C</a> · <a href="https://www.gurufocus.com/term/price-to-tangible-book/WFC">WFC</a> · <a href="https://www.gurufocus.com/term/net-interest-margin/JPM.PK%5EM">NIM JPM</a></li>
+      <li><span class="src">Macrotrends</span> — Price-to-Book: Bank of America 1.50x (26-jun-2026); base para el P/TBV derivado de BAC. <a href="https://www.macrotrends.net/stocks/charts/BAC/bank-of-america/price-book">macrotrends.net — P/B BAC</a></li>
+      <li><span class="src">"FIG IB Guide" (ibinterviewquestions.com)</span> — Rangos típicos de P/TBV por tipo de banco (money-centers 1.5–3.0x; regionales bien gestionados 1.0–2.0x); mediana de industria ≈1.06–1.12x. <a href="https://ibinterviewquestions.com/guides/fig-investment-banking/price-to-book-value-tangible-book-value">ibinterviewquestions.com — P/TBV</a></li>
+      <li><span class="src">StockStory</span> — KeyCorp TBV/acción US$13.60 (1T26). <a href="https://stockstory.org/us/stocks/nyse/key">stockstory.org — KEY</a></li>
+    </ol>
+
+    <h3>Prensa especializada y research (contexto y comentario)</h3>
+    <ol class="reflist">
+      <li><span class="src">CNBC</span> — "Fed holds rates steady amid dissent" (29-abr-2026); cronología de recortes 2025 y hold 2026, rango 3.50–3.75 %. <a href="https://www.cnbc.com/2026/04/29/fed-interest-rate-decision-april-2026.html">cnbc.com</a></li>
+      <li><span class="src">Charles Schwab</span> — "Fed Interest Rates: FOMC Meeting" (jun-2026); dot plot, PCE 3.6 %, tono restrictivo bajo Warsh. <a href="https://www.schwab.com/learn/story/fomc-meeting">schwab.com</a></li>
+      <li><span class="src">TheStreet</span> — "BofA drops blunt warning about Fed rate cuts" (11-may-2026); BofA no espera recortes hasta jul-2027. <a href="https://www.thestreet.com/fed/bofa-drops-blunt-warning-about-fed-rate-cuts-for-remaining-of-2026">thestreet.com</a></li>
+      <li><span class="src">J.P. Morgan Global Research</span> — "What's The Fed's Next Move?" (abr-2026); Fed en pausa 2026, subida sep-2027; contexto Warsh. <a href="https://www.jpmorgan.com/insights/global-research/economy/fed-rate-cuts">jpmorgan.com</a></li>
+      <li><span class="src">Morningstar</span> — "What to Watch As Big Banks Start Reporting Q1 Earnings" (13-abr-2026) y "Major US Banks: Raising Our Fair Value Estimates" (15-abr-2026); dispersión money-centers, NIM BAC hacia 2.25 % a 2030, valores justos. <a href="https://www.morningstar.com/economy/q1-earnings-reports-expected-show-underperformance-across-major-banks">morningstar.com — preview</a> · <a href="https://www.morningstar.com/stocks/major-us-banks-raising-our-fair-value-estimates-after-fresh-look">morningstar.com — fair values</a></li>
+      <li><span class="src">Bondsavvy</span> — "June 2026 Fed Dot Plot" (jun-2026); rango 3.50–3.75 %, dispersión de proyecciones, activos de money market ≈US$7.9 B (bill.). <a href="https://www.bondsavvy.com/fixed-income-investments-blog/fed-dot-plot">bondsavvy.com</a></li>
+      <li><span class="src">FinancialContent</span> — "Wells Fargo Stumbles on Net Interest Income Miss" (14-abr-2026); NII WFC bajo consenso, dinámica de beta de depósitos. <a href="https://www.financialcontent.com/article/marketminute-2026-4-14-wells-fargo-stumbles-on-net-interest-income-miss-a-divergent-path-in-the-2026-banking-landscape">financialcontent.com</a></li>
+      <li><span class="src">Traders Union / CNBC (vía BofA research)</span> — Valorización de Wells Fargo ~1.7x P/TBV tras caída ~16 % YTD; tesis de descuento (03-jun-2026). <a href="https://tradersunion.com/news/financial-news/show/2223783-bank-of-america-wells-fargo-valuation/">tradersunion.com</a></li>
+      <li><span class="src">Investing.com</span> — "Fifth Third Q1 2026 slides: Comerica deal lifts NIM to 3.30%" (18-abr-2026); integración Comerica. <a href="https://www.investing.com/news/company-news/fifth-third-q1-2026-slides-comerica-deal-lifts-nim-to-330-93CH-4621117">investing.com</a></li>
+    </ol>
+  </section>
+
+  <!-- ============ PREVIEW 150 PALABRAS ============ -->
+  <div class="preview">
+    <div class="lab">Preview para home · ~150 palabras</div>
+    <p>El pico de tasas de la Fed ya pasó, pero las bajadas se congelaron: con la referencia en 3.50 %–3.75 % desde diciembre y la inflación reacelerando por el shock energético, el sector bancario estadounidense quedó en un limbo que separa a dos grupos que el mercado sigue tratando como uno. Los <strong>regionales</strong> (KeyCorp, Zions, M&amp;T) operan con márgenes de 2.9 %–3.7 %, crédito que mejora y cartera inmobiliaria comercial en reducción activa, a múltiplos de ≈1.2x–1.5x el valor tangible. Los <strong>money-centers</strong> (JPMorgan, BofA, Citi, Wells) son mejores negocios, pero cotizan con prima: JPMorgan a 2.87x, un 44 % sobre su mediana de diez años. La conclusión: el valor relativo está en los regionales de calidad —comprar expansión de margen a múltiplos normales en lugar de calidad a precios de récord— con una sola condición que sostiene la tesis: que el crédito CRE siga mejorando.</p>
+    <p class="wc">Extensión: 150 palabras · rating: sobreponderar regionales de calidad</p>
+  </div>
+
+  <footer class="legal">
+    Umeres Research · Nota de análisis comparativo con fines informativos y de investigación. No constituye asesoría de inversión ni recomendación personalizada de compra o venta. El autor no es asesor de inversiones registrado. Las cifras provienen de fuentes públicas citadas y se consideran fiables, pero no se garantiza su exactitud; las estimaciones y proyecciones están sujetas a cambio. Los datos marcados como "aproximados", "estimados" o "n/d" se señalan explícitamente en el texto. Redactado el 04 de julio de 2026 con información disponible a esa fecha.
+  </footer>
+
+</div>
+</body>
+</html>

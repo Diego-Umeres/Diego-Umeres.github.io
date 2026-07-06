@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credicorp Ltd. (BAP) — Nota de Research · Umeres Research</title>
+<meta name="description" content="Nota de equity research institucional sobre Credicorp Ltd. (BAP / BVL: BAP). Tesis, análisis financiero 2022–1T26, catalizadores, riesgos, valorización y recomendación.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF6;
+    --paper-2:#F4F1E9;
+    --ink:#0E1E33;
+    --ink-soft:#33465D;
+    --slate:#5C6B7A;
+    --line:#D9D3C5;
+    --line-2:#C4BCA8;
+    --accent:#9A6B2F;
+    --pos:#1E6E52;
+    --neg:#A2313F;
+    --hold:#B07D2A;
+    --serif:"Newsreader",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --maxw:860px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:18px;
+    line-height:1.62;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+
+  /* ---------- ticker tape ---------- */
+  .tape{
+    border-bottom:1px solid var(--ink);
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+  .tape .wrap{display:flex;flex-wrap:wrap;gap:6px 22px;padding-top:9px;padding-bottom:9px;align-items:center;}
+  .tape b{color:#E7C892;font-weight:600;}
+  .tape .sep{color:#5b6f8c;}
+
+  /* ---------- masthead ---------- */
+  header.mast{border-bottom:2.5px solid var(--ink);}
+  .mast .wrap{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;padding-top:26px;padding-bottom:18px;}
+  .brand{display:flex;flex-direction:column;line-height:1;}
+  .brand .name{font-size:34px;font-weight:700;letter-spacing:-.01em;}
+  .brand .name span{color:var(--accent);}
+  .brand .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--slate);margin-top:9px;}
+  .mast .meta{font-family:var(--mono);font-size:11.5px;line-height:1.85;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);text-align:right;}
+  .mast .meta b{color:var(--ink);}
+
+  /* ---------- title block ---------- */
+  .titleblock{padding-top:34px;}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  h1{font-size:44px;line-height:1.08;font-weight:600;letter-spacing:-.015em;margin:0 0 8px;}
+  h1 .tk{font-family:var(--mono);font-weight:500;font-size:.55em;letter-spacing:.02em;color:var(--slate);vertical-align:middle;}
+  .dek{font-size:20px;line-height:1.5;color:var(--ink-soft);font-weight:400;max-width:64ch;margin:12px 0 0;}
+  .byline{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--slate);text-transform:uppercase;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);}
+  .byline b{color:var(--ink);}
+
+  /* ---------- recommendation panel (signature) ---------- */
+  .reco{margin:34px 0 8px;border:1.5px solid var(--ink);background:#fff;}
+  .reco .bar{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;padding:9px 16px;display:flex;justify-content:space-between;align-items:center;}
+  .reco .bar .rt{color:#E7C892;}
+  .reco-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+  .reco-cell{padding:16px 16px 15px;border-right:1px solid var(--line);border-top:0;}
+  .reco-cell:last-child{border-right:0;}
+  .reco-cell .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-bottom:7px;}
+  .reco-cell .val{font-family:var(--mono);font-size:25px;font-weight:600;line-height:1;letter-spacing:-.01em;}
+  .reco-cell .sub{font-family:var(--mono);font-size:11px;color:var(--slate);margin-top:6px;}
+  .chip{display:inline-block;font-family:var(--mono);font-weight:600;font-size:20px;letter-spacing:.02em;padding:3px 10px;border:1.5px solid var(--hold);color:var(--hold);}
+  .pos{color:var(--pos);}
+  .neg{color:var(--neg);}
+  .scenario{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);}
+  .scenario div{padding:12px 16px;border-right:1px solid var(--line);font-family:var(--mono);font-size:12px;}
+  .scenario div:last-child{border-right:0;}
+  .scenario .s-lab{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);}
+  .scenario .s-val{font-size:19px;font-weight:600;margin-top:4px;}
+  .scenario .s-note{font-size:10.5px;color:var(--slate);margin-top:3px;line-height:1.4;}
+  .panel-note{font-family:var(--mono);font-size:10.5px;color:var(--slate);line-height:1.55;margin:8px 2px 0;letter-spacing:.02em;}
+
+  /* ---------- sections ---------- */
+  section{padding-top:44px;}
+  .sec-head{display:flex;align-items:baseline;gap:14px;border-top:2px solid var(--ink);padding-top:16px;margin-bottom:22px;}
+  .sec-num{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent);white-space:nowrap;}
+  h2{font-size:29px;line-height:1.12;font-weight:600;letter-spacing:-.012em;margin:0;}
+  h3{font-size:20px;font-weight:600;margin:30px 0 6px;letter-spacing:-.005em;}
+  p{margin:0 0 16px;}
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px;}
+  strong{font-weight:600;}
+  em{font-style:italic;}
+  .lead{font-size:20.5px;line-height:1.55;color:var(--ink);}
+  .lead::first-letter{}
+
+  /* abstract / en sintesis box */
+  .abstract{background:var(--paper-2);border-left:3px solid var(--accent);padding:20px 24px;margin:0 0 26px;font-size:17.5px;line-height:1.6;}
+  .abstract .t{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+
+  /* data callout inline */
+  .callout{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:14px 0;margin:26px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .callout .c{font-family:var(--mono);}
+  .callout .c .n{font-size:24px;font-weight:600;letter-spacing:-.01em;}
+  .callout .c .l{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-top:5px;line-height:1.35;}
+
+  /* tables */
+  .tbl-wrap{overflow-x:auto;margin:20px 0 8px;-webkit-overflow-scrolling:touch;}
+  table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px;line-height:1.4;}
+  table.fin{min-width:560px;}
+  caption{caption-side:top;text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);padding-bottom:10px;}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{border-bottom:1.5px solid var(--ink);font-weight:600;color:var(--ink);font-size:12px;letter-spacing:.02em;}
+  tbody th{font-weight:400;color:var(--ink-soft);}
+  tr.hi td,tr.hi th{background:var(--paper-2);font-weight:600;color:var(--ink);}
+  .src{font-family:var(--mono);font-size:10.5px;color:var(--slate);letter-spacing:.02em;margin:6px 0 0;line-height:1.5;}
+
+  ul{margin:0 0 16px;padding-left:0;list-style:none;}
+  ul li{position:relative;padding-left:26px;margin-bottom:12px;}
+  ul li::before{content:"";position:absolute;left:2px;top:.68em;width:9px;height:1.5px;background:var(--accent);}
+  ul li strong{color:var(--ink);}
+
+  .divider{height:1px;background:var(--line);margin:8px 0;border:0;}
+
+  /* disclosures */
+  .disc{background:var(--paper-2);border:1px solid var(--line-2);padding:22px 24px;margin-top:22px;font-size:14px;line-height:1.55;color:var(--ink-soft);}
+  .disc h3{font-size:15px;margin:0 0 12px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);}
+  .disc p{margin:0 0 12px;}
+  .disc p:last-child{margin-bottom:0;}
+
+  footer.foot{border-top:2.5px solid var(--ink);margin-top:52px;padding:26px 0 60px;}
+  .foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);}
+  .foot b{color:var(--ink);}
+
+  .rate-legend{font-family:var(--mono);font-size:11px;color:var(--slate);letter-spacing:.03em;margin-top:14px;line-height:1.7;}
+
+  /* responsive */
+  @media(max-width:720px){
+    body{font-size:16.5px;}
+    h1{font-size:33px;}
+    .dek{font-size:18px;}
+    h2{font-size:24px;}
+    .brand .name{font-size:28px;}
+    .mast .wrap{align-items:flex-start;}
+    .mast .meta{text-align:left;}
+    .reco-grid{grid-template-columns:repeat(2,1fr);}
+    .reco-cell:nth-child(2){border-right:0;}
+    .reco-cell:nth-child(1),.reco-cell:nth-child(2){border-bottom:1px solid var(--line);}
+    .scenario{grid-template-columns:1fr;}
+    .scenario div{border-right:0;border-bottom:1px solid var(--line);}
+    .scenario div:last-child{border-bottom:0;}
+    .callout{grid-template-columns:repeat(2,1fr);gap:16px 12px;}
+  }
+
+  @media(prefers-reduced-motion:no-preference){
+    .reco{animation:fade .6s ease both;}
+    @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  }
+
+  /* print / PDF export */
+  @media print{
+    body{background:#fff;font-size:10.5pt;}
+    .wrap{max-width:100%;padding:0 12mm;}
+    .tape{background:#fff;color:var(--ink);border-bottom:1px solid var(--ink);}
+    .tape b{color:var(--accent);}
+    .reco .bar{background:#fff;color:var(--ink);border-bottom:1px solid var(--ink);}
+    .reco .bar .rt{color:var(--accent);}
+    section{padding-top:20px;}
+    .sec-head{page-break-after:avoid;}
+    table,.reco,.callout,.abstract{page-break-inside:avoid;}
+    a{color:var(--ink);}
+    .reco{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ticker tape -->
+<div class="tape"><div class="wrap">
+  <span><b>BAP</b> NYSE</span><span class="sep">·</span>
+  <span><b>BAP</b> BVL</span><span class="sep">·</span>
+  <span>SECTOR&nbsp;·&nbsp;BANCOS / SERVICIOS FINANCIEROS</span><span class="sep">·</span>
+  <span>PERÚ</span><span class="sep">·</span>
+  <span>USD 389.58</span><span class="sep">·</span>
+  <span>04 JUL 2026</span>
+</div></div>
+
+<!-- masthead -->
+<header class="mast"><div class="wrap">
+  <div class="brand">
+    <div class="name">UMERES<span>·</span>RESEARCH</div>
+    <div class="kicker">Equity Research — Banca Andina</div>
+  </div>
+  <div class="meta">
+    Nota de iniciación de cobertura<br>
+    Ref. <b>UR-EQ-2026-001</b><br>
+    Frecuencia: <b>ad hoc</b>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+  <!-- title -->
+  <div class="titleblock">
+    <div class="eyebrow">Iniciación de cobertura · Banca universal Perú</div>
+    <h1>Credicorp Ltd. <span class="tk">BAP · BVL/NYSE</span></h1>
+    <p class="dek">Franquicia financiera dominante del Perú, con ROE en máximos históricos y la incógnita electoral ya resuelta. El problema hoy no es la calidad del negocio: es cuánto de esa calidad ya está en el precio.</p>
+    <div class="byline">
+      <b>Diego Umeres</b> — Bachiller en Economía (UNMSM) · CFA Level&nbsp;I · Candidato CFA Nivel&nbsp;II &nbsp;|&nbsp; Analista de Wealth Management, Vicctus (MFO de Credicorp Capital)<br>
+      Cierre de datos: 04 jul 2026 · Precio de referencia: USD 389.58 (01 jul 2026)
+    </div>
+  </div>
+
+  <!-- RECOMMENDATION PANEL (signature) -->
+  <div class="reco">
+    <div class="bar"><span>Recomendación · Horizonte 12 meses</span><span class="rt">MANTENER</span></div>
+    <div class="reco-grid">
+      <div class="reco-cell">
+        <div class="lab">Rating</div>
+        <div class="val"><span class="chip">MANTENER</span></div>
+        <div class="sub">Neutral, sesgo constructivo</div>
+      </div>
+      <div class="reco-cell">
+        <div class="lab">Precio objetivo 12m</div>
+        <div class="val">$405</div>
+        <div class="sub">≈ 2.6× P/VC fwd</div>
+      </div>
+      <div class="reco-cell">
+        <div class="lab">Precio actual</div>
+        <div class="val">$389.58</div>
+        <div class="sub">Rango 52s: 216.9 – 398.5</div>
+      </div>
+      <div class="reco-cell">
+        <div class="lab">Retorno total est.</div>
+        <div class="val pos">≈ +7.5%</div>
+        <div class="sub">+4% precio · +3.5% div.</div>
+      </div>
+    </div>
+    <div class="scenario">
+      <div><div class="s-lab">Bear</div><div class="s-val neg">$360</div><div class="s-note">ROE ~18%, COE al alza, política tensa</div></div>
+      <div><div class="s-lab">Base</div><div class="s-val">$405</div><div class="s-note">ROE ~19.5%, elección resuelta, VC roll-forward</div></div>
+      <div><div class="s-lab">Bull</div><div class="s-val pos">$470</div><div class="s-note">ROE sostenible &gt;20%, re-rating por Yape</div></div>
+    </div>
+  </div>
+  <p class="panel-note">Rating y precio objetivo derivados por P/VC justificado (Gordon) sobre valor contable proyectado. Base: valor por acción y patrimonio del emisor convertidos a USD a ~S/3.55/USD. No constituye recomendación de inversión — ver Divulgaciones.</p>
+
+</div>
+
+<div class="wrap">
+
+  <!-- 1. TESIS -->
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Resumen ejecutivo y tesis de inversión</h2></div>
+
+    <div class="abstract">
+      <div class="t">En síntesis</div>
+      Credicorp es el mejor banco de la región andina operando en su mejor momento: ROE de <strong>21.1%</strong> en el 1T26, calidad de cartera en mínimos de varios años y una opción digital (Yape) que ya aporta ~9% de los ingresos ajustados por riesgo. Pero la acción cotiza cerca de máximos de 52 semanas, a ~<strong>2.7× valor contable</strong> y ~14× utilidades adelantadas, y el mayor catalizador —la resolución electoral favorable— ya se materializó. <strong>Iniciamos en MANTENER (PO 12m $405)</strong>: la calidad de la franquicia justifica el múltiplo, pero deja poco margen de seguridad. Acumular en correcciones.
+    </div>
+
+    <p class="lead"><strong>Tesis central (caso alcista).</strong> Credicorp combina un cuasi-monopolio en banca peruana (BCP concentra ~76% de los activos y ~65% del patrimonio del grupo) con la ventaja estructural de fondeo más barato del sistema —los depósitos de bajo costo representan ~64% del fondeo— y un motor de crecimiento óptico en Yape (16.4M de usuarios activos, ~82% de la PEA peruana). Ese trípode —escala, fondeo barato y digitalización— sostiene un ROE que ha escalado de 15.8% (2023) a 21.1% (1T26) y una utilidad récord de S/6,925M en 2025 (+25.9% interanual).</p>
+
+    <p>El giro de la historia en 2026 es doble. Primero, <strong>el ciclo de crédito peruano tocó fondo</strong>: tras la recesión de 2023 y el estrés de El Niño, el costo de riesgo cayó de 2.4% a 1.6% en 2025 y a 1.3% en el 1T26, mientras la morosidad retrocedió a 4.3% —por debajo de niveles pre-recesión— con cobertura de 113.8%. Segundo, <strong>la mayor fuente de incertidumbre se despejó en dirección favorable</strong>: Keiko Fujimori (Fuerza Popular, centro-derecha promercado) ganó la segunda vuelta del 7 de junio y fue proclamada por el JNE el 3 de julio, asumiendo el 28 de julio para el período 2026–2031. La franquicia entra a la próxima administración con margen, crédito, capital y momentum operativo a favor.</p>
+
+    <p><strong>La otra cara.</strong> Precisamente porque casi todo salió bien, el mercado ya lo pagó. La acción se revalorizó desde ~$217 (mínimo de 52 semanas) hasta ~$390, y hoy cotiza a un P/VC de ~2.7× frente a un promedio histórico de 4–7 años de 1.4×–1.8×. A estos niveles, el retorno depende menos de que Credicorp ejecute bien —eso ya está descontado— y más de que el mercado internalice un <em>ROE sostenible por encima de 20%</em>, que la propia gerencia insinuó pero aún no formalizó como guía. Es una tesis de calidad a precio pleno, no de valor.</p>
+  </section>
+
+  <!-- 2. FICHA -->
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Ficha de la nota</h2></div>
+    <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><th>Emisor</th><td>Credicorp Ltd. (holding, Bermudas; opera Perú, Bolivia, Chile, Colombia, Panamá, EE.UU.)</td></tr>
+        <tr><th>Ticker</th><td>BAP (NYSE · BVL) · CUSIP BMG2519Y1084</td></tr>
+        <tr><th>Sector / Industria</th><td>Servicios financieros diversificados · Bancos regionales LatAm</td></tr>
+        <tr><th>Índices</th><td>S&amp;P/BVL Perú General · MSCI Peru</td></tr>
+        <tr><th>Cap. bursátil</th><td>≈ USD 31 mil MM (≈ 79.8M acciones en circulación)</td></tr>
+        <tr><th>Patrimonio atrib. (1T26)</th><td>S/40,018 MM (≈ USD 11.3 mil MM)</td></tr>
+        <tr><th>Precio (01 jul 2026)</th><td>USD 389.58 · Rango 52 sem. 216.87 – 398.52</td></tr>
+        <tr class="hi"><th>Recomendación</th><td><strong>MANTENER</strong> (neutral, sesgo constructivo)</td></tr>
+        <tr class="hi"><th>Precio objetivo 12m</th><td><strong>USD 405</strong> (bear 360 / base 405 / bull 470)</td></tr>
+        <tr><th>CEO / CFO</th><td>Gianfranco Ferrari · Alejandro Pérez-Reyes</td></tr>
+        <tr><th>Fecha de la nota</th><td>04 jul 2026 · Iniciación de cobertura</td></tr>
+        <tr><th>Próximo resultado</th><td>2T26 — c. 13 ago 2026</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="src">Fuentes: Credicorp 6-K 1T26 (SEC EDGAR); BVL; Investing.com; Google Finance. Cap. bursátil y conversiones USD son aproximaciones a ~S/3.55/USD.</p>
+  </section>
+
+  <!-- 3. NEGOCIO -->
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Descripción del negocio</h2></div>
+    <p>Credicorp es un <strong>holding financiero universal</strong>, no un banco puro. Su valor se reparte entre cuatro segmentos operativos más un portafolio de innovación que la gerencia gestiona como opción de crecimiento. La concentración es alta y deliberada: BCP es, y seguirá siendo, el generador central de utilidades.</p>
+
+    <h3>Banca Universal — el núcleo (~70% de las utilidades)</h3>
+    <p><strong>Banco de Crédito del Perú (BCP)</strong> es el banco más grande del país y el eje del grupo: al cierre de 2020 representaba ~76% de los activos y ~65% del patrimonio atribuible de Credicorp, y esa proporción se mantiene. En 2025 BCP entregó un <strong>ROE de 24.7%</strong>, y en el 1T26 alcanzó un extraordinario <strong>30.5%</strong> con ratio de eficiencia de 38.6% y costo de riesgo de apenas 0.8%. Incluye también <strong>BCP Bolivia</strong>, de aporte menor y sujeto a ruido cambiario. Es aquí donde reside la ventaja de fondeo de bajo costo del grupo.</p>
+
+    <h3>Microfinanzas — Mibanco</h3>
+    <p><strong>Mibanco</strong> (Perú) y <strong>Mibanco Colombia</strong> atacan el segmento micro y pequeña empresa. Tras años de estrés de cartera post-pandemia, el segmento se normalizó: en el 1T26 Mibanco creció 12.4% interanual en colocaciones, con NIM de 14.9% y ROE de 21.7%; Mibanco Colombia creció 44.5% (FX-neutral) con ROE de 18.3%. Es el motor de mayor margen y mayor riesgo relativo del grupo.</p>
+
+    <h3>Seguros y Pensiones</h3>
+    <p><strong>Grupo Pacífico</strong> (seguros de vida, generales y salud; Credicorp posee ~65% directo y ~34% vía Grupo Crédito) entregó ROE de 18.9% en el 1T26 y consolidó Pacífico Salud tras adquirir el 50% restante del JV con Banmédica. <strong>Prima AFP</strong> administra fondos de pensiones privados; es un negocio de aporte estable pero estructuralmente presionado por los sucesivos retiros de fondos aprobados por el Congreso.</p>
+
+    <h3>Gestión y Asesoría de Inversiones</h3>
+    <p><strong>Credicorp Capital</strong> (banca de inversión, wealth y asset management en Perú, Chile y Colombia) junto con <strong>Atlantic Security Bank (ASB)</strong> conforman el brazo de mercados de capitales. En el 1T26 el segmento rindió un ROE de 15.7% —el más bajo del grupo— pero con AUMs en fuerte expansión (wealth +28%, asset management +34%). <em>Es la línea en la que se inscribe Vicctus, el multi-family office del grupo.</em></p>
+
+    <h3>Portafolio de innovación / neobanco — la opción</h3>
+    <p>Desde el 1 de abril de 2026, <strong>Yape, iO y Tenpo (Chile)</strong> se consolidan en una unidad de neobanco única. Yape llegó a <strong>16.4M de usuarios activos mensuales</strong> (~82% de la PEA peruana), con ingreso por usuario +65% interanual. El portafolio de innovación aportó <strong>9.0% de los ingresos ajustados por riesgo</strong> en el 1T26, camino a la meta de 10% para fin de año. Es aquí donde está la mayor —y más especulativa— fuente de <em>upside</em> de la tesis: algunos analistas de <em>sell-side</em> proyectan que Yape podría representar ~30% de las utilidades hacia 2028, escenario que la gerencia no confirma pero tampoco desmiente.</p>
+
+    <div class="callout">
+      <div class="c"><div class="n">~70%</div><div class="l">Utilidades desde BCP (banca universal)</div></div>
+      <div class="c"><div class="n">64%</div><div class="l">Fondeo de bajo costo / total</div></div>
+      <div class="c"><div class="n">16.4M</div><div class="l">Usuarios activos Yape</div></div>
+      <div class="c"><div class="n">9.0%</div><div class="l">Ingr. aj. riesgo del portafolio de innovación</div></div>
+    </div>
+    <p class="src">Fuentes: Credicorp 6-K 1T26 y 20-F 2020 (SEC EDGAR); <em>earnings call</em> 1T26; Forbes Perú. Los pesos por subsidiaria son aproximados: las contribuciones varían por trimestre y por eliminaciones de consolidación.</p>
+  </section>
+
+  <!-- 4. FINANCIERO -->
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Análisis financiero — 2022 a 1T26</h2></div>
+    <p>La historia financiera de los últimos cuatro años es la de un <strong>banco que atravesó un ciclo completo</strong>: un pico de rentabilidad post-pandemia (2022), un valle por recesión y El Niño (2023–24, cuando el ROE cayó al 15.8%–16.5% y el costo de riesgo subió a 2.4%), y una recuperación en V hacia rentabilidad récord (2025–26). Lo relevante para la tesis es que el ROE de 21.1% del 1T26 no descansa en apalancamiento ni en <em>trading</em>, sino en tres palancas repetibles: margen (NIM 6.6%), normalización del riesgo (provisiones –35% interanual) e ingresos por comisiones/transaccionalidad (+15.6%).</p>
+
+    <div class="tbl-wrap">
+    <table class="fin">
+      <caption>Indicadores consolidados · atribuibles a Credicorp (IFRS)</caption>
+      <thead>
+        <tr><th>Indicador</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>1T26</th></tr>
+      </thead>
+      <tbody>
+        <tr class="hi"><th>Utilidad neta (S/ MM)</th><td>4,632</td><td>4,866</td><td>5,501</td><td>6,925</td><td>2,063</td></tr>
+        <tr><th>Crecimiento a/a</th><td>—</td><td>+5.0%</td><td>+13.1%</td><td>+25.9%</td><td>+16.1%</td></tr>
+        <tr class="hi"><th>ROE</th><td>16.7%</td><td>15.8%</td><td>16.5%</td><td>19.0%</td><td>21.1%</td></tr>
+        <tr><th>ROA (aprox.)</th><td>~2.2%</td><td>~2.0%</td><td>2.2%</td><td>~2.5%</td><td>~2.6%</td></tr>
+        <tr><th>NIM</th><td>~5.1%</td><td>~5.6%</td><td>~6.3%</td><td>~6.4%</td><td>6.58%</td></tr>
+        <tr><th>NIM aj. por riesgo</th><td>n.d.</td><td>~4.5%</td><td>~5.0%</td><td>5.55%</td><td>5.81%</td></tr>
+        <tr><th>Ratio de eficiencia</th><td>~43.9%</td><td>~45.5%</td><td>45.8%</td><td>~45.6%</td><td>45.8%</td></tr>
+        <tr class="hi"><th>Morosidad (NPL)</th><td>~4.9%</td><td>~5.5%</td><td>~5.2%</td><td>4.5%</td><td>4.3%</td></tr>
+        <tr><th>Costo de riesgo</th><td>~2.1%</td><td>~2.8%</td><td>2.4%</td><td>1.6%</td><td>1.3%</td></tr>
+        <tr><th>Cobertura NPL</th><td>n.d.</td><td>n.d.</td><td>n.d.</td><td>n.d.</td><td>113.8%</td></tr>
+        <tr><th>Patrimonio atrib. (S/ MM)</th><td>~26,700</td><td>~30,900</td><td>~35,800</td><td>38,367</td><td>40,018</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="src">Fuentes: Credicorp <em>earnings releases</em> 6-K 2022–1T26 (SEC EDGAR); Reporte Anual 2024; comunicados Grupo Credicorp; StockTitan; TipRanks. Celdas marcadas «~» o «aprox.» son estimaciones propias a partir de datos trimestrales o interanuales; «n.d.» = no divulgado en las fuentes consultadas. Cifras de gestión pueden diferir de reportadas por reclasificaciones (p. ej. IFRS 17 desde 2023).</p>
+
+    <h3>Lectura del ciclo</h3>
+    <ul>
+      <li><strong>Rentabilidad.</strong> El salto de ROE de ~16% a &gt;20% no es solo cíclico: refleja mejor <em>mix</em> hacia retail (mayor margen), abaratamiento del fondeo (depósitos de bajo costo 73% del total a fin de 2025) y monetización de Yape. La gerencia guía ROE de <strong>~19.5% para 2026</strong>, «con sesgo al alza».</li>
+      <li><strong>Calidad de cartera.</strong> La morosidad bajó 71 pb en 2025 y otros 20 pb en el 1T26. El riesgo aquí es de <em>base</em>: el CoR de 1.3% es artificialmente bajo (efectos <em>one-off</em> de <em>profit sharing</em> minero y retiros de AFP) y la propia gerencia anticipa que normalizará al alza conforme acelere la originación retail.</li>
+      <li><strong>Eficiencia.</strong> Se mantiene disciplinada (~45–46%) pese a fuerte inversión en tecnología: los gastos «disruptivos» (Yape) crecen ~40% pero se absorben con apalancamiento operativo en BCP (eficiencia de 38.6%).</li>
+      <li><strong>Capital y dividendos.</strong> BCP mantiene CET1 (IFRS) sólido (~12.6%) y el grupo declaró un dividendo ordinario récord de <strong>S/50 por acción</strong> (pago junio 2026), señal de solvencia sin comprometer crecimiento.</li>
+    </ul>
+  </section>
+
+  <!-- 5. CATALIZADORES -->
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Catalizadores (12–18 meses)</h2></div>
+    <ul>
+      <li><strong>Formalización de un «ROE sostenible» &gt;20%.</strong> La gerencia condicionó dar una nueva guía de rentabilidad estructural «al norte de 20%» al resultado electoral. Con la elección resuelta a favor, una revisión al alza de la guía en los próximos <em>calls</em> sería el catalizador de re-rating más directo.</li>
+      <li><strong>Monetización de Yape.</strong> Superar la meta de 10% de ingresos ajustados por riesgo y —clave— empezar a reportar métricas de <em>rentabilidad</em> (no solo de ingresos) de la unidad de neobanco. Si Yape demuestra ser acretivo al ROE, valida la narrativa de «desacople» del ciclo macro.</li>
+      <li><strong>Transición de gobierno promercado.</strong> El equipo Fujimori asume el 28 de julio; un arranque ordenado, con señales de disciplina fiscal y sin ruido sobre nuevos retiros de AFP, favorece múltiplos de todo el sistema financiero peruano.</li>
+      <li><strong>Aceleración del crédito retail.</strong> La guía es de crecimiento de colocaciones ~8.5% (~10.5% FX-neutral). Un repunte del crédito de consumo y microfinanzas por encima de doble dígito ampliaría el NIM sin deteriorar aún la calidad.</li>
+      <li><strong>Recompra / dividendo extraordinario.</strong> Con exceso de capital y ROE alto, hay espacio para retornos de capital adicionales que sostengan el retorno total.</li>
+    </ul>
+  </section>
+
+  <!-- 6. RIESGOS -->
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Riesgos principales</h2></div>
+    <ul>
+      <li><strong>Valorización / catalizador agotado.</strong> El principal riesgo no es operativo sino de <em>precio</em>: la acción descuenta buena parte de las buenas noticias. El mayor catalizador (elección) ya ocurrió; un resultado 2T26 meramente «en línea» podría gatillar toma de utilidades desde máximos.</li>
+      <li><strong>Normalización del costo de riesgo.</strong> El CoR de 1.3% es insosteniblemente bajo. La gerencia lo reconoce. Si la aceleración del crédito retail eleva las provisiones más rápido de lo previsto, el ROE cede.</li>
+      <li><strong>Riesgo político y social peruano.</strong> Aunque la elección favoreció al mercado, el país arrastra fragmentación (récord de votos nulos/blancos, ~41% de indecisos en primera vuelta) y baja legitimidad institucional. El nuevo Congreso bicameral eleva el umbral de vacancia presidencial (2/3 en ambas cámaras), lo que aporta gobernabilidad, pero la conflictividad social sigue latente.</li>
+      <li><strong>Regulatorio.</strong> Nuevos retiros de fondos de AFP (que golpean a Prima y drenan depósitos), topes a tasas de interés, o impuestos al sector, son riesgos recurrentes en el ciclo político peruano.</li>
+      <li><strong>Macro y clima.</strong> El PBI 2026 se proyecta en ~3.3–3.5%, pero un Fenómeno El Niño de mayor intensidad —hoy en nivel bajo-moderado, con impacto más claro hacia septiembre— presionaría cartera agrícola y pesquera. Añádase la volatilidad cambiaria (Bolivia) y el riesgo geopolítico externo.</li>
+      <li><strong>Competencia digital.</strong> Intercorp (Plin/Interbank) y fintechs disputan el terreno de pagos; la ventaja de Yape es grande pero no infinita.</li>
+      <li><strong>Ejecución de la opción Yape.</strong> El caso alcista depende de que la inversión digital se convierta en utilidades. Si Yape sigue consumiendo capital sin acretar ROE, el múltiplo actual es difícil de sostener.</li>
+    </ul>
+  </section>
+
+  <!-- 7. VALORIZACION -->
+  <section>
+    <div class="sec-head"><span class="sec-num">07</span><h2>Valorización</h2></div>
+    <p>Para un banco, el ancla es el <strong>P/VC (precio / valor contable) contrastado con el ROE</strong>, no el P/U aislado. Credicorp cotiza hoy a métricas plenas:</p>
+
+    <div class="tbl-wrap">
+    <table>
+      <caption>Múltiplos comparables · datos aproximados a jul 2026</caption>
+      <thead>
+        <tr><th>Emisor</th><th>País</th><th>P/VC</th><th>P/U fwd</th><th>ROE '25</th><th>Rec.</th></tr>
+      </thead>
+      <tbody>
+        <tr class="hi"><th>Credicorp (BAP)</th><td>Perú</td><td>~2.7×</td><td>~14×</td><td>19.0%</td><td>MANTENER</td></tr>
+        <tr><th>Intercorp Fin. (IFS)</th><td>Perú</td><td>~1.6×</td><td>~9–10×</td><td>16.8%</td><td>ref.</td></tr>
+        <tr><th>Itaú Unibanco</th><td>Brasil</td><td>~1.8×</td><td>~8×</td><td>~21%</td><td>ref.</td></tr>
+        <tr><th>Grupo Cibest (Bancolombia)</th><td>Colombia</td><td>~1.3×</td><td>~7×</td><td>~15%</td><td>ref.</td></tr>
+        <tr><th>Banco de Chile</th><td>Chile</td><td>~2.2×</td><td>~9×</td><td>~22%</td><td>ref.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="src">Comparables regionales con P/VC y P/U aproximados (rangos de mercado a mediados de 2026), presentados como contexto, no como valuación precisa de cada emisor. IFS es la comparable directa peruana. Fuentes: reportes de resultados; Investing.com; StockAnalysis; Simply Wall St.</p>
+
+    <p>La lectura es clara: <strong>Credicorp cotiza con prima frente a toda su cohorte regional y frente a su propia historia</strong> (P/VC 4–7 años de 1.4×–1.8×). La prima es <em>defendible</em> —mayor ROE, mejor diversificación, fondeo más barato, opción Yape—, pero es una prima, no una ganga. Frente a su comparable directa peruana (IFS, ~1.6× P/VC y ROE ~17%), Credicorp paga ~2.7× por ~2–3 pp más de ROE y una franquicia más profunda.</p>
+
+    <h3>P/VC justificado (modelo de Gordon)</h3>
+    <p>Usando P/VC = (ROE − g) / (COE − g), con COE de ~13.5% (tasa libre de riesgo EE.UU. ~4.3% + <em>spread</em> soberano Perú + prima de riesgo × beta ~0.9–1.0) y crecimiento nominal de largo plazo g ~8% en soles:</p>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Escenario</th><th>ROE sost.</th><th>COE</th><th>g</th><th>P/VC just.</th></tr></thead>
+      <tbody>
+        <tr><th>Bear</th><td>18.0%</td><td>14.0%</td><td>7.5%</td><td>~1.6×</td></tr>
+        <tr class="hi"><th>Base</th><td>19.5%</td><td>13.5%</td><td>8.0%</td><td>~2.1×</td></tr>
+        <tr><th>Bull</th><td>20.5%</td><td>13.0%</td><td>8.5%</td><td>~2.7×</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>El P/VC actual de ~2.7× coincide con el <strong>extremo alcista</strong> del rango justificado: el mercado ya está pricing la hipótesis de ROE sostenible &gt;20% y un COE comprimido por la resolución electoral. En el caso base (P/VC justificado ~2.1×), el valor razonable sobre valor contable actual (~$141/acción) sería ~$300, <em>por debajo</em> del precio; pero aplicando el múltiplo base a un valor contable adelantado a fin de 2026 (~$158/acción por utilidades retenidas), y reconociendo la calidad de la franquicia, llegamos a un <strong>PO 12m de $405</strong> (≈ 2.6× VC fwd). El caso bull ($470) exige que la formalización de un ROE &gt;20% y Yape sostengan 2.7× sobre el libro adelantado.</p>
+
+    <h3>Contraste con el consenso</h3>
+    <p>El consenso de <em>sell-side</em> se ubica en <strong>Comprar</strong> (≈11 compras, 0 ventas), con precio objetivo mediano en el rango <strong>$355–$391</strong> y revisiones recientes al alza (JPMorgan a $412, UBS a $408, HSBC subió a <em>Buy</em>, Morgan Stanley a <em>Overweight</em>). Nuestro PO base ($405) es coherente con ese clúster, pero <strong>discrepamos del rating</strong>: con la acción ya dentro del rango de precios objetivo del consenso y en máximos, la relación riesgo-retorno a 12 meses nos parece más de <em>Mantener</em> que de <em>Comprar</em>. El retorno total esperado (~7.5%, precio + dividendo) no compensa el riesgo de valorización plena y de normalización del costo de riesgo.</p>
+  </section>
+
+  <!-- 8. CONCLUSION -->
+  <section>
+    <div class="sec-head"><span class="sec-num">08</span><h2>Conclusión y recomendación</h2></div>
+    <p class="lead"><strong>Recomendación: MANTENER. Precio objetivo 12 meses: $405. Horizonte: 12 meses.</strong></p>
+    <p>Credicorp es, sin ambigüedad, la mejor franquicia bancaria del Perú y una de las más rentables de América Latina, operando hoy en un punto óptimo del ciclo: ROE récord, riesgo controlado, capital sólido, dividendo récord y —lo más importante— con la incertidumbre electoral resuelta a su favor. Nada de eso está en discusión.</p>
+    <p>Lo que está en discusión es el <strong>precio de entrada</strong>. A ~2.7× valor contable y ~14× utilidades adelantadas, cerca de máximos históricos y después de que el catalizador principal ya se materializó, el mercado paga por adelantado la excelencia operativa. Para un inversionista de largo plazo que ya posee la acción, la calidad justifica <strong>mantener</strong>. Para uno que busca entrar, el punto de entrada es exigente: preferimos <strong>acumular en correcciones</strong> hacia la zona de ~$330–350 (≈ 2.3× VC), donde la ecuación riesgo-retorno mejora materialmente. El caso para subir a <em>Comprar</em> se activaría con (i) una guía formal de ROE sostenible &gt;20%, o (ii) evidencia de que Yape es acretivo a la rentabilidad del grupo.</p>
+  </section>
+
+  <!-- DISCLOSURES -->
+  <section>
+    <div class="sec-head"><span class="sec-num">—</span><h2>Divulgaciones y aviso legal</h2></div>
+    <div class="disc">
+      <h3>Independencia y conflictos de interés</h3>
+      <p>Esta nota es una <strong>pieza analítica de carácter educativo y personal</strong>, elaborada íntegramente a partir de <strong>información pública</strong> (reportes 6-K/20-F del emisor en SEC EDGAR, comunicados oficiales, presentaciones de resultados, prensa financiera y datos de mercado). No se ha utilizado información material no pública (MNPI) de ninguna clase.</p>
+      <p>El autor se desempeña profesionalmente en Vicctus, multi-family office perteneciente a Credicorp Capital, subsidiaria de Credicorp Ltd. (el emisor analizado). <strong>Las opiniones aquí expresadas son estrictamente personales del autor y no representan la posición, recomendación ni el <em>research</em> oficial de Credicorp, Credicorp Capital, Vicctus ni de ninguna de sus afiliadas.</strong> Esta relación laboral constituye un conflicto de interés que el lector debe ponderar al leer la recomendación.</p>
+      <h3>No es asesoría de inversión</h3>
+      <p>El contenido tiene fines exclusivamente informativos y no constituye asesoría financiera, legal ni tributaria, ni una oferta o recomendación de compra o venta de valores. El autor no es asesor de inversiones registrado. Toda decisión de inversión es responsabilidad exclusiva del lector, quien debe realizar su propia diligencia y, de ser necesario, consultar a un asesor profesional. Los rendimientos pasados no garantizan resultados futuros; la inversión en renta variable conlleva riesgo de pérdida de capital.</p>
+      <h3>Limitaciones de los datos</h3>
+      <p>Las cifras provienen de fuentes consideradas fiables pero no verificadas independientemente. Varios indicadores están marcados como estimaciones («~», «aprox.») o como no divulgados («n.d.»). Las conversiones a dólares son aproximaciones sujetas al tipo de cambio (~S/3.55/USD). El precio objetivo y el rating reflejan supuestos que pueden no materializarse. Datos con cierre al 04 de julio de 2026.</p>
+    </div>
+  </section>
+
+  <!-- FUENTES -->
+  <section>
+    <div class="sec-head"><span class="sec-num">§</span><h2>Fuentes principales</h2></div>
+    <p class="src">
+      · Credicorp Ltd. — <em>Earnings Releases</em> 6-K 2022, 2023, 2024, 2025 y 1T26 · SEC EDGAR (sec.gov).<br>
+      · Credicorp Ltd. — Formulario 20-F 2020 · Reporte Anual y de Sostenibilidad 2024.<br>
+      · <em>Earnings call</em> 1T26 y 4T25 · The Motley Fool; Investing.com; GuruFocus.<br>
+      · Resultados 1T26: utilidad S/2,063.2 MM, ROE 21.1%, NPL 4.3%, CoR 1.3%, NIM 6.58%, patrimonio S/40,018 MM · StockTitan; Forbes Perú; Grupo Credicorp.<br>
+      · Resultados 2025: utilidad S/6,925.4 MM (+25.9%), ROE 19.0% · 2023: S/4,865.5 MM, ROE 15.8% · Grupo Credicorp; El Comercio.<br>
+      · Valorización y consenso: Investing.com; TipRanks; Simply Wall St; StockAnalysis; TickerNerd; WallStreetZen.<br>
+      · Comparable IFS/Interbank: 6-K IFS 1T26/4T25 · StockTitan; Investing.com.<br>
+      · Contexto electoral y macro: Ipsos Perú; ONPE/JNE; Wikipedia (Elecciones Perú 2026); Directorio Legislativo (informe preelectoral).<br>
+      Todos los enlaces y cifras corresponden a información pública consultada al 04 jul 2026.
+    </p>
+  </section>
+
+</div>
+
+<footer class="foot"><div class="wrap">
+  <span><b>Umeres · Research</b> — Equity Research, Banca Andina</span>
+  <span>© 2026 Diego Umeres · umeres.pe</span>
+  <span>Documento de análisis · No constituye asesoría de inversión</span>
+</div></footer>
+
+</body>
+</html>
